@@ -1,0 +1,16 @@
+{
+    "name": "bartist.bump",
+    "description": "description of BARTist",
+    "architecture": "@CLICK_ARCH@",
+    "title": "BARTist",
+    "hooks": {
+        "BARTist": {
+            "apparmor": "BARTist/BARTist.apparmor",
+            "desktop":  "BARTist/BARTist.desktop"
+        }
+    },
+    "version": "0.1",
+    "maintainer": "Unix One <unix1@live.com>",
+    "framework" : "ubuntu-sdk-15.04.6"
+}
+

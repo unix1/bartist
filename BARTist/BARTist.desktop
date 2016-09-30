@@ -1,0 +1,7 @@
+[Desktop Entry]
+_Name=BARTist
+Exec=qmlscene %U BARTist/Main.qml
+Icon=BARTist/BARTist.png
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
