@@ -2,8 +2,8 @@ import QtQuick 2.4
 import QtQuick.XmlListModel 2.0
 import Ubuntu.Components 1.3
 
-import Ubuntu.Components.ListItems 0.1
-import Ubuntu.Components.Popups 0.1
+import Ubuntu.Components.ListItems 1.3
+import Ubuntu.Components.Popups 1.3
 
 /*!
     \brief MainView with a Label and Button elements.
@@ -15,7 +15,7 @@ MainView {
     objectName: "mainView"
 
     // Note! applicationName needs to match the "name" field of the click manifest
-    applicationName: "Bartist.Bump"
+    applicationName: "bartist.bump"
 
     /*
      This property enables the application to change orientation
