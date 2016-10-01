@@ -23,7 +23,7 @@ MainView {
     */
     //automaticOrientation: true
 
-    width: units.gu(100)
+    width: units.gu(50)
     height: units.gu(75)
 
     property real margins: units.gu(2)
@@ -38,64 +38,6 @@ MainView {
             fill: parent
         }
 
-        ListModel {
-            id: stations
-
-            function getStation(idx) {
-                return (idx >= 0 && idx < count) ? get(idx).name: ""
-            }
-
-            function getCode(idx) {
-                return (idx >= 0 && idx < count) ? get(idx).code: ""
-            }
-        }
-        ListModel {
-            id: trains
-        }
-        /// NOTE stationsTest is for testing only
-        ListModel {
-            id: stationsTest
-            ListElement { code: "12TH"; name: "12th St Oakland" }
-            ListElement { code: "16TH"; name: "16th St SF" }
-            ListElement { code: "24TH"; name: "24th St SF" }
-            ListElement { code: "ASHB"; name: "Ashby" }
-            ListElement { code: "BRKL"; name: "Downtown Berkeley" }
-            ListElement { code: "COLM"; name: "Colma" }
-            ListElement { code: "DBLN"; name: "Dublin/Pleasanton" }
-            ListElement { code: "EMBC"; name: "Embarcadero" }
-            ListElement { code: "GLNP"; name: "Glen Park" }
-            ListElement { code: "LKMT"; name: "Lake Meritt" }
-            ListElement { code: "MACR"; name: "Macarthur" }
-            ListElement { code: "MONT"; name: "Montgomerry" }
-            ListElement { code: "ORND"; name: "Orinda" }
-            ListElement { code: "PTSB"; name: "Pittsburg/Bay Point" }
-            ListElement { code: "POWL"; name: "Powell" }
-            ListElement { code: "ROCK"; name: "Rockridge" }
-            ListElement { code: "WNTC"; name: "Walnut Creek" }
-            function getStation(idx) {
-                return (idx >= 0 && idx < count) ? get(idx).name: ""
-            }
-
-            function getCode(idx) {
-                return (idx >= 0 && idx < count) ? get(idx).code: ""
-            }
-        }
-
-        /// NOTE trainsTest is for testing only
-        ListModel {
-            id: trainsTest
-            ListElement {
-                destination: "test station 1"
-                minutes: "1"
-                length: "1"
-            }
-            ListElement {
-                destination: "test station 2"
-                minutes: "2"
-                length: "2"
-            }
-        }
-
         Column {
             id: pageLayout
 
@@ -103,7 +45,7 @@ MainView {
                 margins: root.margins
                 top: pageHeader.bottom
                 left: pageHeader.left
-//                bottom: parent.bottom
+                bottom: parent.bottom
                 topMargin: units.gu(2)
             }
             height: parent.height
@@ -111,6 +53,7 @@ MainView {
             spacing: units.gu(1)
 
             Row {
+                id: selectFromRow
                 spacing: units.gu(1)
                 Button {
                     id: selectorFrom
@@ -140,12 +83,70 @@ MainView {
                     objectName: "trainsList"
                     width: 400; height: 500
                     model: trains
-                    //delegate: trainDelegate
+//                    delegate: trainDelegate
                     delegate: Text {
                         text: destination + " in " + minutes + " minutes (" + length + " cars)"
                     }
                 }
             }
+        }
+    }
+
+    ListModel {
+        id: stations
+
+        function getStation(idx) {
+            return (idx >= 0 && idx < count) ? get(idx).name: ""
+        }
+
+        function getCode(idx) {
+            return (idx >= 0 && idx < count) ? get(idx).code: ""
+        }
+    }
+    ListModel {
+        id: trains
+    }
+    /// NOTE stationsTest is for testing only
+    ListModel {
+        id: stationsTest
+        ListElement { code: "12TH"; name: "12th St Oakland" }
+        ListElement { code: "16TH"; name: "16th St SF" }
+        ListElement { code: "24TH"; name: "24th St SF" }
+        ListElement { code: "ASHB"; name: "Ashby" }
+        ListElement { code: "BRKL"; name: "Downtown Berkeley" }
+        ListElement { code: "COLM"; name: "Colma" }
+        ListElement { code: "DBLN"; name: "Dublin/Pleasanton" }
+        ListElement { code: "EMBC"; name: "Embarcadero" }
+        ListElement { code: "GLNP"; name: "Glen Park" }
+        ListElement { code: "LKMT"; name: "Lake Meritt" }
+        ListElement { code: "MACR"; name: "Macarthur" }
+        ListElement { code: "MONT"; name: "Montgomerry" }
+        ListElement { code: "ORND"; name: "Orinda" }
+        ListElement { code: "PTSB"; name: "Pittsburg/Bay Point" }
+        ListElement { code: "POWL"; name: "Powell" }
+        ListElement { code: "ROCK"; name: "Rockridge" }
+        ListElement { code: "WNTC"; name: "Walnut Creek" }
+        function getStation(idx) {
+            return (idx >= 0 && idx < count) ? get(idx).name: ""
+        }
+
+        function getCode(idx) {
+            return (idx >= 0 && idx < count) ? get(idx).code: ""
+        }
+    }
+
+    /// NOTE trainsTest is for testing only
+    ListModel {
+        id: trainsTest
+        ListElement {
+            destination: "test station 1"
+            minutes: "1"
+            length: "1"
+        }
+        ListElement {
+            destination: "test station 2"
+            minutes: "2"
+            length: "2"
         }
     }
 
@@ -206,7 +207,7 @@ MainView {
                     left: parent.left
                     right: parent.right
                 }
-                height: pageLayout.height
+                height: root.height
                 Header {
                     id: header
                     text: i18n.tr("Select station")
