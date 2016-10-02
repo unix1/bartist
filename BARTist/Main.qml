@@ -64,9 +64,9 @@ MainView {
                 }
             }
 
-            // TODO remove? This not used.
             Row {
                 spacing: units.gu(1)
+                // TODO remove? This not used.
                 Component {
                     id: trainDelegate
                     Item {
@@ -80,9 +80,11 @@ MainView {
 
                 ListView {
                     id: trainsList
+                    z: -100
                     objectName: "trainsList"
-                    width: 400; height: 500
-                    model: trains
+                    height: 500
+                    width: 400
+                    model: trainFetcher
 //                    delegate: trainDelegate
                     delegate: Text {
                         text: destination + " in " + minutes + " minutes (" + length + " cars)"
@@ -103,9 +105,7 @@ MainView {
             return (idx >= 0 && idx < count) ? get(idx).code: ""
         }
     }
-    ListModel {
-        id: trains
-    }
+
     /// NOTE stationsTest is for testing only
     ListModel {
         id: stationsTest
@@ -172,23 +172,14 @@ MainView {
         source: "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + stationCode + "&key=MW9S-E7SL-26DU-VV8V"
         query: "/root/station/etd"
 
-        onStatusChanged: {
-            if (status === XmlListModel.Ready) {
-                for (var i = 0; i < count; i++) {
-                    trains.append({"destination": get(i).destination, "minutes": get(i).minutes, "length": get(i).length})
-                }
-            }
-        }
-
-        function refresh() {
-            trains.clear()
-            stationCode = stations.getCode(selectorFrom.stationIndex)
-            reload()
-        }
-
         XmlRole { name: "destination"; query: "destination/string()" }
         XmlRole { name: "minutes"; query: "estimate[1]/minutes/string()" }
         XmlRole { name: "length"; query: "estimate[1]/length/string()" }
+
+        function refresh() {
+            stationCode = stations.getCode(selectorFrom.stationIndex)
+            reload()
+        }
     }
 
     ActivityIndicator {
@@ -224,7 +215,7 @@ MainView {
                         onClicked: {
                             console.log('click event started')
                             listStations.currentIndex = index
-                            console.log('current index set')
+                            console.log('current index set to ' + index)
                             caller.stationIndex = index
                             trainFetcher.refresh()
                             hide()
