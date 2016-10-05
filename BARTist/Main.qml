@@ -40,6 +40,7 @@ MainView {
 
         Column {
             id: pageLayout
+            width: parent.width
 
             anchors {
                 margins: root.margins
@@ -80,14 +81,18 @@ MainView {
 
                 ListView {
                     id: trainsList
-                    z: -100
                     objectName: "trainsList"
-                    height: 500
-                    width: 400
+                    height: 1000
+                    width: pageLayout.width
+                    clip: true
                     model: trainFetcher
 //                    delegate: trainDelegate
                     delegate: Text {
                         text: destination + " in " + minutes + " minutes (" + length + " cars)"
+                    }
+                    PullToRefresh {
+                        refreshing: trainFetcher.status === XmlListModel.Loading
+                        onRefresh: trainFetcher.reload()
                     }
                 }
             }
@@ -120,7 +125,7 @@ MainView {
         ListElement { code: "GLNP"; name: "Glen Park" }
         ListElement { code: "LKMT"; name: "Lake Meritt" }
         ListElement { code: "MACR"; name: "Macarthur" }
-        ListElement { code: "MONT"; name: "Montgomerry" }
+        ListElement { code: "MONT"; name: "Montgomery" }
         ListElement { code: "ORND"; name: "Orinda" }
         ListElement { code: "PTSB"; name: "Pittsburg/Bay Point" }
         ListElement { code: "POWL"; name: "Powell" }
