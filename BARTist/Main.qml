@@ -65,7 +65,7 @@ MainView {
                     id: selectorFrom
                     objectName: "selectorFrom"
                     property int stationIndex: 0
-                    text: stations.getStation(stationIndex)
+                    text: stationFetcher.getStation(stationIndex)
                     onClicked: PopupUtils.open(stationSelector, selectorFrom)
                 }
             }
@@ -88,18 +88,6 @@ MainView {
                     }
                 }
             }
-        }
-    }
-
-    ListModel {
-        id: stations
-
-        function getStation(idx) {
-            return (idx >= 0 && idx < count) ? get(idx).name: ""
-        }
-
-        function getCode(idx) {
-            return (idx >= 0 && idx < count) ? get(idx).code: ""
         }
     }
 
@@ -152,15 +140,16 @@ MainView {
         source: "https://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V"
         query: "/root/stations/station"
 
-        onStatusChanged: {
-            if (status === XmlListModel.Ready) {
-                for (var i = 0; i < count; i++)
-                    stations.append({"code": get(i).code, "name": get(i).name})
-            }
-        }
-
         XmlRole { name: "name"; query: "name/string()" }
         XmlRole { name: "code"; query: "abbr/string()" }
+
+        function getStation(idx) {
+            return (idx >= 0 && idx < count) ? get(idx).name: ""
+        }
+
+        function getCode(idx) {
+            return (idx >= 0 && idx < count) ? get(idx).code: ""
+        }
     }
 
     XmlListModel {
@@ -174,7 +163,7 @@ MainView {
         XmlRole { name: "length"; query: "estimate[1]/length/string()" }
 
         function refresh() {
-            stationCode = stations.getCode(selectorFrom.stationIndex)
+            stationCode = stationFetcher.getCode(selectorFrom.stationIndex)
             reload()
         }
     }
@@ -205,7 +194,7 @@ MainView {
                     clip: true
                     width: parent.width
                     height: parent.height - header.height
-                    model: stations
+                    model: stationFetcher
                     delegate: Standard {
                         objectName: "popoverStationSelector"
                         text: name
@@ -218,7 +207,7 @@ MainView {
                             hide()
                         }
                     }
-                    onCurrentItemChanged: {console.log('current item changed to ' + stations.getCode(listStations.currentIndex))}
+                    onCurrentItemChanged: {console.log('current item changed to ' + stationFetcher.getCode(listStations.currentIndex))}
                 }
             }
             ParallelAnimation {
