@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtQuick.XmlListModel 2.0
+import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
-
 import Ubuntu.Components.ListItems 1.3
 import Ubuntu.Components.Popups 1.3
 
@@ -28,6 +28,11 @@ MainView {
 
     property real margins: units.gu(2)
     property real buttonWidth: units.gu(9)
+
+    Settings {
+        property alias stagionIndex: selectorFrom.stationIndex
+        property alias stationCode: trainFetcher.stationCode
+    }
 
     Page {
         header: PageHeader {
