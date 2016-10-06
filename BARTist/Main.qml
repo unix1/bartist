@@ -28,6 +28,8 @@ MainView {
 
     property real margins: units.gu(2)
     property real buttonWidth: units.gu(9)
+    property string bartApiKey: "MW9S-E7SL-26DU-VV8V"
+    property string defaultStationCode: "12TH"
 
     Settings {
         property alias stagionIndex: selectorFrom.stationIndex
@@ -138,7 +140,7 @@ MainView {
 
     XmlListModel {
         id: stationFetcher
-        source: "https://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V"
+        source: "https://api.bart.gov/api/stn.aspx?cmd=stns&key=" + root.bartApiKey
         query: "/root/stations/station"
 
         XmlRole { name: "name"; query: "name/string()" }
@@ -155,8 +157,8 @@ MainView {
 
     XmlListModel {
         id: trainFetcher
-        property string stationCode: "12TH"
-        source: "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + stationCode + "&key=MW9S-E7SL-26DU-VV8V"
+        property string stationCode: root.defaultStationCode
+        source: "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + stationCode + "&key=" + root.bartApiKey
         query: "/root/station/etd"
 
         XmlRole { name: "destination"; query: "destination/string()" }
