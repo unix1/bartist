@@ -72,18 +72,6 @@ MainView {
 
             Row {
                 spacing: units.gu(1)
-                // TODO remove? This not used.
-                Component {
-                    id: trainDelegate
-                    Item {
-                        Column {
-                            Text {
-                                text: destination + " in " + minutes + " minutes (" + length + " cars)"
-                            }
-                        }
-                    }
-                }
-
                 ListView {
                     id: trainsList
                     objectName: "trainsList"
@@ -91,7 +79,6 @@ MainView {
                     width: pageLayout.width
                     clip: true
                     model: trainFetcher
-//                    delegate: trainDelegate
                     delegate: Text {
                         text: destination + " in " + minutes + " minutes (" + length + " cars)"
                     }
