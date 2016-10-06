@@ -45,16 +45,15 @@ MainView {
 
         Column {
             id: pageLayout
-            width: parent.width
 
             anchors {
                 margins: root.margins
                 top: pageHeader.bottom
                 left: pageHeader.left
+                right: pageHeader.right
                 bottom: parent.bottom
                 topMargin: units.gu(2)
             }
-            height: parent.height
 
             spacing: units.gu(1)
 
@@ -72,11 +71,12 @@ MainView {
 
             Row {
                 spacing: units.gu(1)
+                width: parent.width
                 ListView {
                     id: trainsList
                     objectName: "trainsList"
                     height: 1000
-                    width: pageLayout.width
+                    width: parent.width
                     clip: true
                     model: trainFetcher
                     delegate: Text {
