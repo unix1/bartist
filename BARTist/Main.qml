@@ -83,7 +83,9 @@ MainView {
                     model: trainFetcher
                     delegate: Text {
                         text: (minutes == "Leaving") ? destination + " leaving now (" + length + " cars)"
-                                                     : destination + " in " + minutes + ((minutes == "1") ? " minute (" : " minutes (") + length + " cars)"
+                                                     : destination + " in " + minutes +
+                                                       ((minutes == "1") ? " minute ("
+                                                                         : " minutes (") + length + " cars)"
                     }
                     PullToRefresh {
                         refreshing: trainFetcher.status === XmlListModel.Loading
