@@ -28,9 +28,14 @@ MainView {
 
     property real margins: units.gu(2)
     property real buttonWidth: units.gu(9)
+
+    // BART API configuration
     property string bartApiKey: "MW9S-E7SL-26DU-VV8V"
-    property string bartApiBaseUri: "https://api.bart.gov/api/"
+    property string bartApiUriBase: "https://api.bart.gov/api/"
+    property string bartApiUriStations: bartApiUriBase + "stn.aspx?cmd=stns&key=" + root.bartApiKey
+    property string bartApiUriEtd: bartApiUriBase + "etd.aspx?cmd=etd&key=" + root.bartApiKey
     property string defaultStationCode: "12TH"
+
     // Used for testing in offline mode, loads data from XML files in test directory
     property bool offline: false
 
@@ -101,8 +106,7 @@ MainView {
 
     XmlListModel {
         id: stationFetcher
-        source: root.offline ? "tests/stations.xml"
-                             : root.bartApiBaseUri + "stn.aspx?cmd=stns&key=" + root.bartApiKey
+        source: root.offline ? "tests/stations.xml" : root.bartApiUriStations
         query: "/root/stations/station"
 
         XmlRole { name: "name"; query: "name/string()" }
@@ -121,7 +125,7 @@ MainView {
         id: trainFetcher
         property string stationCode: root.defaultStationCode
         source: root.offline ? "tests/trains.xml"
-                             : root.bartApiBaseUri + "etd.aspx?cmd=etd&orig=" + stationCode + "&key=" + root.bartApiKey
+                             : root.bartApiUriEtd + "&orig=" + stationCode
         query: "/root/station/etd"
 
         XmlRole { name: "destination"; query: "destination/string()" }
