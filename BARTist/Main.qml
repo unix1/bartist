@@ -31,6 +31,7 @@ MainView {
     property string bartApiKey: "MW9S-E7SL-26DU-VV8V"
     property string bartApiBaseUri: "https://api.bart.gov/api/"
     property string defaultStationCode: "12TH"
+    // Used for testing in offline mode, loads data from XML files in test directory
     property bool offline: false
 
     Settings {
@@ -100,7 +101,8 @@ MainView {
 
     XmlListModel {
         id: stationFetcher
-        source: root.offline ? "tests/stations.xml" : root.bartApiBaseUri + "stn.aspx?cmd=stns&key=" + root.bartApiKey
+        source: root.offline ? "tests/stations.xml"
+                             : root.bartApiBaseUri + "stn.aspx?cmd=stns&key=" + root.bartApiKey
         query: "/root/stations/station"
 
         XmlRole { name: "name"; query: "name/string()" }
@@ -118,7 +120,8 @@ MainView {
     XmlListModel {
         id: trainFetcher
         property string stationCode: root.defaultStationCode
-        source: root.offline ? "tests/trains.xml" : root.bartApiBaseUri + "etd.aspx?cmd=etd&orig=" + stationCode + "&key=" + root.bartApiKey
+        source: root.offline ? "tests/trains.xml"
+                             : root.bartApiBaseUri + "etd.aspx?cmd=etd&orig=" + stationCode + "&key=" + root.bartApiKey
         query: "/root/station/etd"
 
         XmlRole { name: "destination"; query: "destination/string()" }
