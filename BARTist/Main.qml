@@ -98,50 +98,6 @@ MainView {
         }
     }
 
-    /// NOTE stationsTest is for testing only
-    ListModel {
-        id: stationsTest
-        ListElement { code: "12TH"; name: "12th St Oakland" }
-        ListElement { code: "16TH"; name: "16th St SF" }
-        ListElement { code: "24TH"; name: "24th St SF" }
-        ListElement { code: "ASHB"; name: "Ashby" }
-        ListElement { code: "BRKL"; name: "Downtown Berkeley" }
-        ListElement { code: "COLM"; name: "Colma" }
-        ListElement { code: "DBLN"; name: "Dublin/Pleasanton" }
-        ListElement { code: "EMBC"; name: "Embarcadero" }
-        ListElement { code: "GLNP"; name: "Glen Park" }
-        ListElement { code: "LKMT"; name: "Lake Meritt" }
-        ListElement { code: "MACR"; name: "Macarthur" }
-        ListElement { code: "MONT"; name: "Montgomery" }
-        ListElement { code: "ORND"; name: "Orinda" }
-        ListElement { code: "PTSB"; name: "Pittsburg/Bay Point" }
-        ListElement { code: "POWL"; name: "Powell" }
-        ListElement { code: "ROCK"; name: "Rockridge" }
-        ListElement { code: "WNTC"; name: "Walnut Creek" }
-        function getStation(idx) {
-            return (idx >= 0 && idx < count) ? get(idx).name: ""
-        }
-
-        function getCode(idx) {
-            return (idx >= 0 && idx < count) ? get(idx).code: ""
-        }
-    }
-
-    /// NOTE trainsTest is for testing only
-    ListModel {
-        id: trainsTest
-        ListElement {
-            destination: "test station 1"
-            minutes: "1"
-            length: "1"
-        }
-        ListElement {
-            destination: "test station 2"
-            minutes: "2"
-            length: "2"
-        }
-    }
-
     XmlListModel {
         id: stationFetcher
         source: root.offline ? "tests/stations.xml" : root.bartApiBaseUri + "stn.aspx?cmd=stns&key=" + root.bartApiKey
