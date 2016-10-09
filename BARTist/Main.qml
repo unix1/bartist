@@ -29,7 +29,9 @@ MainView {
     property real margins: units.gu(2)
     property real buttonWidth: units.gu(9)
     property string bartApiKey: "MW9S-E7SL-26DU-VV8V"
+    property string bartApiBaseUri: "https://api.bart.gov/api/"
     property string defaultStationCode: "12TH"
+    property bool offline: false
 
     Settings {
         property alias stagionIndex: selectorFrom.stationIndex
@@ -84,8 +86,8 @@ MainView {
                     delegate: Text {
                         text: (minutes == "Leaving") ? destination + " leaving now (" + length + " cars)"
                                                      : destination + " in " + minutes +
-                                                       ((minutes == "1") ? " minute ("
-                                                                         : " minutes (") + length + " cars)"
+                                                       ((minutes == "1") ? " minute (" : " minutes (")
+                                                       + length + " cars)"
                     }
                     PullToRefresh {
                         refreshing: trainFetcher.status === XmlListModel.Loading
@@ -142,7 +144,7 @@ MainView {
 
     XmlListModel {
         id: stationFetcher
-        source: "https://api.bart.gov/api/stn.aspx?cmd=stns&key=" + root.bartApiKey
+        source: root.offline ? "tests/stations.xml" : root.bartApiBaseUri + "stn.aspx?cmd=stns&key=" + root.bartApiKey
         query: "/root/stations/station"
 
         XmlRole { name: "name"; query: "name/string()" }
@@ -160,7 +162,7 @@ MainView {
     XmlListModel {
         id: trainFetcher
         property string stationCode: root.defaultStationCode
-        source: "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=" + stationCode + "&key=" + root.bartApiKey
+        source: root.offline ? "tests/trains.xml" : root.bartApiBaseUri + "etd.aspx?cmd=etd&orig=" + stationCode + "&key=" + root.bartApiKey
         query: "/root/station/etd"
 
         XmlRole { name: "destination"; query: "destination/string()" }
