@@ -32,8 +32,8 @@ MainView {
     // BART API configuration
     property string bartApiKey: "MW9S-E7SL-26DU-VV8V"
     property string bartApiUriBase: "https://api.bart.gov/api/"
-    property string bartApiUriStations: bartApiUriBase + "stn.aspx?cmd=stns&key=" + root.bartApiKey
-    property string bartApiUriEtd: bartApiUriBase + "etd.aspx?cmd=etd&key=" + root.bartApiKey
+    property string bartApiUriStations: bartApiUriBase + "stn.aspx?cmd=stns&key=" + bartApiKey
+    property string bartApiUriEtd: bartApiUriBase + "etd.aspx?cmd=etd&key=" + bartApiKey
     property string defaultStationCode: "12TH"
 
     // Used for testing in offline mode, loads data from XML files in test directory
