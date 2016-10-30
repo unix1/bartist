@@ -83,12 +83,12 @@ MainView {
                 spacing: units.gu(1)
                 width: parent.width
                 ListView {
-                    id: trainsList
-                    objectName: "trainsList"
+                    id: destinationList
+                    objectName: "destinationList"
                     height: 1000
                     width: parent.width
                     clip: true
-                    model: trainFetcher
+                    model: destinations
                     delegate: Text {
                         text: (minutes == "Leaving") ? destination + " leaving now (" + length + " cars)"
                                                      : destination + " in " + minutes +
@@ -131,11 +131,34 @@ MainView {
         XmlRole { name: "destination"; query: "destination/string()" }
         XmlRole { name: "minutes"; query: "estimate[1]/minutes/string()" }
         XmlRole { name: "length"; query: "estimate[1]/length/string()" }
+        XmlRole { name: "minutes2"; query: "estimate[2]/minutes/string()" }
+        XmlRole { name: "length2"; query: "estimate[2]/length/string()" }
+        XmlRole { name: "minutes3"; query: "estimate[3]/minutes/string()" }
+        XmlRole { name: "length3"; query: "estimate[3]/length/string()" }
+        XmlRole { name: "minutes4"; query: "estimate[4]/minutes/string()" }
+        XmlRole { name: "length4"; query: "estimate[4]/length/string()" }
+
+        onStatusChanged: {
+            // TODO: make it so that trains are added under destinations
+            if (status === XmlListModel.Ready) {
+                destinations.clear()
+                for (var i = 0; i < count; i++) {
+                    destinations.append({"destination": get(i).destination, "minutes": get(i).minutes, "length": get(i).length})
+                    get(i).minutes2 ? destinations.append({"destination": get(i).destination, "minutes": get(i).minutes2, "length": get(i).length2}) : null;
+                    get(i).minutes3 ? destinations.append({"destination": get(i).destination, "minutes": get(i).minutes3, "length": get(i).length3}) : null;
+                    get(i).minutes4 ? destinations.append({"destination": get(i).destination, "minutes": get(i).minutes4, "length": get(i).length4}) : null;
+                }
+            }
+        }
 
         function refresh() {
             stationCode = stationFetcher.getCode(selectorFrom.stationIndex)
             reload()
         }
+    }
+
+    ListModel {
+        id: destinations
     }
 
     ActivityIndicator {
