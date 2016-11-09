@@ -89,11 +89,20 @@ MainView {
                     width: parent.width
                     clip: true
                     model: destinations
-                    delegate: Text {
-                        text: (minutes == "Leaving") ? destination + " leaving now (" + length + " cars)"
-                                                     : destination + " in " + minutes +
-                                                       ((minutes == "1") ? " minute (" : " minutes (")
-                                                       + length + " cars)"
+                    delegate: Row {
+                        spacing: units.gu(3)
+                        width: parent.width
+                        Column {
+                            width: units.gu(6)
+                            Text { text: code }
+                        }
+                        Repeater {
+                            model: trains
+                            delegate: Column {
+                                Text { text: length + "-car\n" +
+                                             ((minutes === "Leaving") ? "leaving now" : "in " + minutes + " min") }
+                            }
+                        }
                     }
                     PullToRefresh {
                         refreshing: trainFetcher.status === XmlListModel.Loading
@@ -129,6 +138,7 @@ MainView {
         query: "/root/station/etd"
 
         XmlRole { name: "destination"; query: "destination/string()" }
+        XmlRole { name: "code"; query: "abbreviation/string()" }
         XmlRole { name: "minutes"; query: "estimate[1]/minutes/string()" }
         XmlRole { name: "length"; query: "estimate[1]/length/string()" }
         XmlRole { name: "minutes2"; query: "estimate[2]/minutes/string()" }
@@ -139,14 +149,27 @@ MainView {
         XmlRole { name: "length4"; query: "estimate[4]/length/string()" }
 
         onStatusChanged: {
-            // TODO: make it so that trains are added under destinations
             if (status === XmlListModel.Ready) {
                 destinations.clear()
                 for (var i = 0; i < count; i++) {
-                    destinations.append({"destination": get(i).destination, "minutes": get(i).minutes, "length": get(i).length})
-                    get(i).minutes2 ? destinations.append({"destination": get(i).destination, "minutes": get(i).minutes2, "length": get(i).length2}) : null;
-                    get(i).minutes3 ? destinations.append({"destination": get(i).destination, "minutes": get(i).minutes3, "length": get(i).length3}) : null;
-                    get(i).minutes4 ? destinations.append({"destination": get(i).destination, "minutes": get(i).minutes4, "length": get(i).length4}) : null;
+                    var trains = [{"minutes": get(i).minutes, "length": get(i).length}]
+                    /*
+                    get(i).minutes2 ? trains[trains.length] = {"minutes": get(i).minutes2, "length": get(i).length2} : null;
+                    get(i).minutes3 ? trains[trains.length] = {"minutes": get(i).minutes3, "length": get(i).length3} : null;
+                    get(i).minutes4 ? trains[trains.length] = {"minutes": get(i).minutes4, "length": get(i).length4} : null;
+                    */
+                    if (get(i).minutes2) {
+                        trains[trains.length] = {"minutes": get(i).minutes2, "length": get(i).length2};
+                    }
+                    if (get(i).minutes3) {
+                        trains[trains.length] = {"minutes": get(i).minutes3, "length": get(i).length3};
+                    }
+                    if (get(i).minutes4) {
+                        trains[trains.length] = {"minutes": get(i).minutes4, "length": get(i).length4};
+                    }
+
+                    var destination = { "name": get(i).destination, "code": get(i).code, "trains": trains }
+                    destinations.append(destination)
                 }
             }
         }
