@@ -153,20 +153,9 @@ MainView {
                 destinations.clear()
                 for (var i = 0; i < count; i++) {
                     var trains = [{"minutes": get(i).minutes, "length": get(i).length}]
-                    /*
                     get(i).minutes2 ? trains[trains.length] = {"minutes": get(i).minutes2, "length": get(i).length2} : null;
                     get(i).minutes3 ? trains[trains.length] = {"minutes": get(i).minutes3, "length": get(i).length3} : null;
                     get(i).minutes4 ? trains[trains.length] = {"minutes": get(i).minutes4, "length": get(i).length4} : null;
-                    */
-                    if (get(i).minutes2) {
-                        trains[trains.length] = {"minutes": get(i).minutes2, "length": get(i).length2};
-                    }
-                    if (get(i).minutes3) {
-                        trains[trains.length] = {"minutes": get(i).minutes3, "length": get(i).length3};
-                    }
-                    if (get(i).minutes4) {
-                        trains[trains.length] = {"minutes": get(i).minutes4, "length": get(i).length4};
-                    }
 
                     var destination = { "name": get(i).destination, "code": get(i).code, "trains": trains }
                     destinations.append(destination)
@@ -215,15 +204,12 @@ MainView {
                         objectName: "popoverStationSelector"
                         text: name
                         onClicked: {
-                            console.log('click event started')
                             listStations.currentIndex = index
-                            console.log('current index set to ' + index)
                             caller.stationIndex = index
                             trainFetcher.refresh()
                             hide()
                         }
                     }
-                    onCurrentItemChanged: {console.log('current item changed to ' + stationFetcher.getCode(listStations.currentIndex))}
                 }
             }
             ParallelAnimation {
