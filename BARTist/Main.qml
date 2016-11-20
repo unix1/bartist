@@ -15,7 +15,7 @@ MainView {
     objectName: "mainView"
 
     // Note! applicationName needs to match the "name" field of the click manifest
-    applicationName: "bartist.bump"
+    applicationName: "bartist.unix1"
 
     /*
      This property enables the application to change orientation
