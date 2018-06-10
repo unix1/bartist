@@ -116,4 +116,9 @@ ApplicationWindow {
     ListModel {
         id: destinations
     }
+
+    BusyIndicator {
+        anchors.right: parent.right
+        running: stationFetcher.status === XmlListModel.Loading || trainFetcher.status === XmlListModel.Loading
+    }
 }
