@@ -8,7 +8,7 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Tabs")
+    title: qsTr("BARTist")
 
     // BART API configuration
     property string bartApiKey: "MW9S-E7SL-26DU-VV8V"
