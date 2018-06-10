@@ -1,2 +1,2 @@
 # bartist
-BART schedule for Ubuntu Touch
+BART schedule app in QML
