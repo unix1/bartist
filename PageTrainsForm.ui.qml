@@ -1,5 +1,5 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.2
 
 Page {
     id: page
@@ -7,104 +7,111 @@ Page {
     height: 400
     property alias stationsColumn: stationsColumn
     property alias selectorFrom: selectorFrom
+    property alias stack: stack
     title: qsTr("")
 
     header: Label {
         text: qsTr("BARTist")
-        font.pixelSize: Qt.application.font.pixelSize * 2
+        font.pointSize: Qt.application.pointSize * 2
         padding: 10
     }
 
-    Column {
-        id: trainsColumn
+    StackView {
+        id: stack
+        initialItem: trainsColumn
         anchors.fill: parent
 
-        Row {
-            id: selectFromRow
-            height: 50
-            anchors.right: parent.right
-            anchors.left: parent.left
-            anchors.top: parent.top
+        Rectangle {
+            id: trainsColumn
 
-            Button {
-                id: selectorFrom
-                property int stationIndex: 0
-                text: qsTr("")
-                anchors.fill: parent
+            Rectangle {
+                id: selectFromRow
+                // TODO magic number?
+                height: 50
+                Button {
+                    id: selectorFrom
+                    property int stationIndex: 0
+                    text: qsTr("Select a station")
+                }
             }
-        }
 
-        Row {
-            id: trainsRow
-            anchors.top: selectFromRow.bottom
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
+            Rectangle {
+                id: trainsRow
+                anchors.top: selectFromRow.bottom
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
 
-            ListView {
-                id: listView
-                x: 0
-                y: 0
-                width: parent.width
-                height: 1000
-                delegate: Row {
-                    spacing: 15
-                    width: parent.width
-                    Column {
-                        width: 60
-                        Text {
-                            text: code
-                        }
-                    }
-                    Repeater {
-                        model: trains
-                        delegate: Column {
-                            Text {
-                                text: length + "-car\n" + ((minutes === "Leaving") ? "leaving now" : "in " + minutes + " min")
+                ScrollView {
+                    clip: true
+                    anchors.fill: parent
+                    ListView {
+                        id: listView
+                        x: 0
+                        y: 0
+                        width: parent.width
+                        height: parent.height
+                        delegate: Row {
+                            spacing: 15
+                            width: parent.width
+                            Column {
+                                // TODO magic number?
+                                width: 60
+                                Text {
+                                    text: code
+                                }
+                            }
+                            Repeater {
+                                model: trains
+                                delegate: Column {
+                                    Text {
+                                        text: length + "-car\n" + ((minutes === "Leaving") ? "leaving now" : "in " + minutes + " min")
+                                    }
+                                }
                             }
                         }
+                        model: destinations
                     }
                 }
-                model: destinations
-            }
-        }
-    }
-
-    Column {
-        id: stationsColumn
-        anchors.fill: parent
-        visible: false
-        Row {
-            id: stationsTitleRow
-            height: 50
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            Text {
-                text: qsTr("Select station")
-                anchors.fill: parent
             }
         }
 
-        Row {
-            id: stationsListRow
-            anchors.top: stationsTitleRow.bottom
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.topMargin: 0
-
-            ListView {
-                id: stationsListView
-                anchors.fill: parent
-                delegate: StationListDelegate {
-                    itemWidth: stationsListRow.width
+        Rectangle {
+            id: stationsColumn
+            Rectangle {
+                id: stationsTitleRow
+                anchors.top: parent.top
+                // TODO magic number?
+                height: 50
+                Text {
+                    // TODO figure out why this text is showing on startup
+                    //text: qsTr("Select a station")
+                    anchors.fill: parent
                 }
-                model: stationFetcher
+            }
+
+            Rectangle {
+                id: stationsListRow
+                anchors.top: stationsTitleRow.bottom
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.left: parent.left
+
+                ScrollView {
+                    clip: true
+                    anchors.fill: parent
+
+                    ListView {
+                        id: stationsListView
+                        anchors.fill: parent
+                        delegate: StationListDelegate {
+                            itemWidth: stationsListRow.width
+                        }
+                        model: stationFetcher
+                    }
+                }
             }
         }
     }
+
 }

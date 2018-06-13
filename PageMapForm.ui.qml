@@ -7,7 +7,7 @@ Page {
 
     header: Label {
         text: qsTr("Page 2")
-        font.pixelSize: Qt.application.font.pixelSize * 2
+        font.pointSize: Qt.application.pointSize * 2
         padding: 10
     }
 

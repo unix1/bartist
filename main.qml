@@ -36,8 +36,7 @@ ApplicationWindow {
         PageTrainsForm {
             selectorFrom.text: stationFetcher.getStation(selectorFrom.stationIndex)
             selectorFrom.onClicked: {
-                console.log("button clicked")
-                stationsColumn.visible = true
+                stack.push(stationsColumn)
             }
         }
 
