@@ -3,8 +3,8 @@ import QtQuick.Controls 2.2
 
 Page {
     id: page
-    width: 600
-    height: 400
+    width: 720
+    height: 1280
     property alias stationsColumn: stationsColumn
     property alias selectorFrom: selectorFrom
     property alias stack: stack
@@ -12,7 +12,7 @@ Page {
 
     header: Label {
         text: qsTr("BARTist")
-        font.pointSize: Qt.application.pointSize * 2
+        font.pointSize: 20
         padding: 10
     }
 
@@ -32,6 +32,8 @@ Page {
                     id: selectorFrom
                     property int stationIndex: 0
                     text: qsTr("Select a station")
+                    // TODO magic number?
+                    font.pointSize: 15
                 }
             }
 

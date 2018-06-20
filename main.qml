@@ -6,8 +6,8 @@ import QtQuick.XmlListModel 2.0
 ApplicationWindow {
     id: root
     visible: true
-    width: 640
-    height: 480
+    width: 720
+    height: 1280
     title: qsTr("BARTist")
 
     // BART API configuration
@@ -92,6 +92,7 @@ ApplicationWindow {
         XmlRole { name: "length4"; query: "estimate[4]/length/string()" }
 
         onStatusChanged: {
+            console.log("app font size: " + Qt.application.pointSize)
             if (status === XmlListModel.Ready) {
                 destinations.clear()
                 for (var i = 0; i < count; i++) {
