@@ -7,5 +7,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>StationListDelegate.qml</file>
         <file>BART_cc_map.png</file>
+        <file>MapImage.qml</file>
     </qresource>
 </RCC>
