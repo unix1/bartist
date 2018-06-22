@@ -4,6 +4,7 @@ import QtQuick.Controls 2.0
 Page {
     width: 720
     height: 1280
+    title: qsTr("BARTist Map")
 
     header: Label {
         text: qsTr("BARTist")

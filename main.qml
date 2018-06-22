@@ -24,7 +24,7 @@ ApplicationWindow {
 
     // TODO add settings
     //Settings {
-    //    property alias stationIndex: selectorFrom.stationIndex
+    //    property alias stationIndex: selectFromButton.stationIndex
     //    property alias stationCode: trainFetcher.stationCode
     //}
 
@@ -34,9 +34,11 @@ ApplicationWindow {
         currentIndex: tabBar.currentIndex
 
         PageTrainsForm {
-            selectorFrom.text: stationFetcher.getStation(selectorFrom.stationIndex)
-            selectorFrom.onClicked: {
-                stack.push(stationsColumn)
+            selectFromButton {
+                text: stationFetcher.getStation(selectFromButton.stationIndex)
+                onClicked: {
+                    stack.push(stationsColumn)
+                }
             }
         }
 
@@ -92,7 +94,6 @@ ApplicationWindow {
         XmlRole { name: "length4"; query: "estimate[4]/length/string()" }
 
         onStatusChanged: {
-            console.log("app font size: " + Qt.application.pointSize)
             if (status === XmlListModel.Ready) {
                 destinations.clear()
                 for (var i = 0; i < count; i++) {

@@ -5,10 +5,10 @@ Page {
     id: page
     width: 720
     height: 1280
+    title: qsTr("BARTist Trains")
     property alias stationsColumn: stationsColumn
-    property alias selectorFrom: selectorFrom
+    property alias selectFromButton: selectFromButton
     property alias stack: stack
-    title: qsTr("")
 
     header: Label {
         text: qsTr("BARTist")
@@ -27,13 +27,16 @@ Page {
             Rectangle {
                 id: selectFromRow
                 // TODO magic number?
-                height: 50
+                height: 100
                 Button {
-                    id: selectorFrom
+                    id: selectFromButton
                     property int stationIndex: 0
                     text: qsTr("Select a station")
+                    font.family: "Verdana"
                     // TODO magic number?
-                    font.pointSize: 15
+                    font.pointSize: 27
+                    font.bold: true
+                    height: 80
                 }
             }
 
@@ -105,6 +108,7 @@ Page {
 
                     ListView {
                         id: stationsListView
+                        spacing: 20
                         anchors.fill: parent
                         delegate: StationListDelegate {
                             itemWidth: stationsListRow.width
@@ -115,5 +119,4 @@ Page {
             }
         }
     }
-
 }
