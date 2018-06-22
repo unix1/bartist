@@ -13,8 +13,10 @@ Page {
         padding: 10
     }
 
-    Label {
-        text: qsTr("You are on Page 2.")
-        anchors.centerIn: parent
+    Image {
+        id: image
+        fillMode: Image.PreserveAspectFit
+        anchors.fill: parent
+        source: "BART_cc_map.png"
     }
 }
