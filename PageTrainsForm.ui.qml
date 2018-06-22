@@ -34,7 +34,7 @@ Page {
                     text: qsTr("Select a station")
                     font.family: "Verdana"
                     // TODO magic number?
-                    font.pointSize: 27
+                    font.pointSize: 25
                     font.bold: true
                     height: 80
                 }
@@ -56,21 +56,27 @@ Page {
                         y: 0
                         width: parent.width
                         height: parent.height
+                        spacing: 20
                         delegate: Row {
-                            spacing: 15
+                            spacing: 10
                             width: parent.width
                             Column {
                                 // TODO magic number?
-                                width: 60
+                                width: 100
                                 Text {
                                     text: code
+                                    font.family: "Verdana"
+                                    font.pointSize: 20
                                 }
                             }
                             Repeater {
                                 model: trains
                                 delegate: Column {
+                                    width: 90
                                     Text {
                                         text: length + "-car\n" + ((minutes === "Leaving") ? "leaving now" : "in " + minutes + " min")
+                                        font.family: "Verdana"
+                                        font.pointSize: 15
                                     }
                                 }
                             }
