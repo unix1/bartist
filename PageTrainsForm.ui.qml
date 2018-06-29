@@ -5,6 +5,7 @@ Page {
     id: page
     width: 720
     height: 1280
+    padding: 10
     title: qsTr("BARTist Trains")
     property alias stationsColumn: stationsColumn
     property alias selectFromButton: selectFromButton
@@ -27,16 +28,17 @@ Page {
             Rectangle {
                 id: selectFromRow
                 // TODO magic number?
-                height: 100
+                height: 80
                 Button {
                     id: selectFromButton
                     property int stationIndex: 0
+                    x: 0
                     text: qsTr("Select a station")
                     font.family: "Verdana"
                     // TODO magic number?
-                    font.pointSize: 25
+                    font.pointSize: 20
                     font.bold: true
-                    height: 80
+                    height: 60
                 }
             }
 
