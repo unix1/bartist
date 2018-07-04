@@ -29,10 +29,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    android-sources/AndroidManifest.xml
+    android-sources/AndroidManifest.xml \
+    android-sources/res/drawable-hdpi/icon.png \
+    android-sources/res/drawable-ldpi/icon.png \
+    android-sources/res/drawable-mdpi/icon.png
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
         $$PWD/libcrypto.so \
         $$PWD/libssl.so
 }
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android-sources
