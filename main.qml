@@ -2,13 +2,76 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.0
 import QtQuick.XmlListModel 2.0
+import QtQuick.Layouts 1.3
 
 ApplicationWindow {
     id: root
     visible: true
     width: 720
     height: 1280
-    title: qsTr("BARTist")
+
+    header:ToolBar{
+
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        background: Rectangle {
+            anchors.fill: parent
+            color: "#5ca6e3"
+        }
+        RowLayout{
+            anchors.fill:parent
+
+            Label{
+                Layout.alignment: Qt.AlignHCenter
+                anchors.top: parent.top
+                text:qsTr("BARTist")
+            }
+            ToolButton {
+                text: "\u2757"
+                anchors.right: parent.right
+                onClicked: popup.open()
+            }
+            Popup {
+                id: popup
+                padding: 20
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
+                width: 200
+                height: 300
+                modal: true
+                focus: true
+                ColumnLayout{
+                   spacing: 0
+                   anchors.left: parent.left
+                   anchors.right: parent.right
+                   Label{
+                       text:qsTr("BARTist")
+                       font.pointSize: 16
+                       Layout.alignment: Qt.AlignHCenter
+                   }
+                   Text {
+                       id: link_Text
+                       font.pointSize: 10
+                       text: '<html><style type="text/css"></style><a href="https://bartist.org/">Bartist Link</a></html>'
+                       onLinkActivated: Qt.openUrlExternally(link)
+                   }
+                }
+
+
+
+
+
+
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+            }
+        }
+
+
+    }
+
+
+
 
     // BART API configuration
     property string bartApiKey: "MW9S-E7SL-26DU-VV8V"
