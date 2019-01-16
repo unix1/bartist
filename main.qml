@@ -12,9 +12,7 @@ ApplicationWindow {
 
     header:ToolBar{
 
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
+        
         background: Rectangle {
             anchors.fill: parent
             color: "#5ca6e3"
