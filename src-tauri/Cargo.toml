@@ -2,7 +2,7 @@
 name = "bartist"
 version = "0.1.0"
 description = "BART train schedule app"
-authors = ["Zurab Davitiani"]
+authors = ["Unix One"]
 edition = "2021"
 license = "Apache-2.0"
 

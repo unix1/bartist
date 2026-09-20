@@ -21,11 +21,11 @@ const loading = ref(false);
 
     <nav class="tabs">
       <button type="button" class="tab" :class="{ active: tab === 'trains' }" @click="tab = 'trains'">
-        Trains
-      </button>
-      <button type="button" class="tab" :class="{ active: tab === 'map' }" @click="tab = 'map'">
-        Map
-      </button>
+      🚆 Trains
+    </button>
+    <button type="button" class="tab" :class="{ active: tab === 'map' }" @click="tab = 'map'">
+      🗺️ Map
+    </button>
     </nav>
   </div>
 </template>

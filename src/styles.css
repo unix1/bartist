@@ -1,14 +1,16 @@
 :root {
   color-scheme: light;
-  --blue: #0033a0;
-  --blue-dark: #00267a;
+  --blue: #3d7ec9;
+  --blue-dark: #2b5f9a;
+  --header: #e3eef8;
   --yellow: #ffd100;
   --text: #1a1a1a;
   --muted: #5c5c5c;
   --bg: #f3f4f6;
   --card: #ffffff;
   --line: #e5e7eb;
-  font-family: Verdana, Geneva, system-ui, sans-serif;
+  --row: #f7f9fc;
+  font-family: "Inter Variable", Inter, system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.4;
   color: var(--text);
@@ -37,8 +39,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--blue);
-  color: #fff;
+  background: var(--header);
+  color: var(--blue-dark);
   padding: 14px 16px;
 }
 
@@ -51,8 +53,8 @@ body {
 .spinner {
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  border-top-color: var(--yellow);
+  border: 2px solid rgba(43, 95, 154, 0.2);
+  border-top-color: var(--blue);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
@@ -106,32 +108,40 @@ main {
 .departures {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   margin-top: 18px;
 }
 
 .destination {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: flex-start;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
 }
 
 .destination-code {
-  flex: 0 0 72px;
-  font-size: 1.25rem;
-  padding-top: 2px;
+  flex: 0 0 64px;
+  font-size: 1.15rem;
+  color: var(--blue-dark);
+  padding-top: 4px;
 }
 
 .trains {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 16px;
+  gap: 8px;
 }
 
 .train {
-  min-width: 86px;
+  min-width: 78px;
   font-size: 0.95rem;
   color: var(--text);
+  background: var(--row);
+  border-radius: 8px;
+  padding: 6px 10px;
 }
 
 .train-when {
@@ -147,7 +157,6 @@ main {
 .tab {
   flex: 1;
   font: inherit;
-  font-weight: 700;
   padding: 14px 8px;
   border: 0;
   background: transparent;
@@ -195,8 +204,8 @@ main {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: var(--blue);
-  color: #fff;
+  background: var(--header);
+  color: var(--blue-dark);
   padding: 12px 16px;
 }
 
