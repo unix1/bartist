@@ -17,4 +17,4 @@ npm run tauri dev
 
 ## License
 
-BARTist is free software under [GNU GPL v3](LICENSE).
+BARTist is licensed under the [Apache License 2.0](LICENSE).
