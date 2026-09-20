@@ -5,9 +5,18 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "tauri": "tauri"
   },
+  "dependencies": {
+    "@panzoom/panzoom": "^4.6.2",
+    "vue": "^3.5.13"
+  },
   "devDependencies": {
-    "@tauri-apps/cli": "^2"
+    "@tauri-apps/cli": "^2",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.3"
   }
 }
