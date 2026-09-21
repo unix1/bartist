@@ -15,6 +15,7 @@
   line-height: 1.4;
   color: var(--text);
   background: var(--bg);
+  -webkit-text-size-adjust: 100%;
 }
 
 * {
@@ -25,6 +26,12 @@ html,
 body {
   margin: 0;
   height: 100%;
+  overflow: hidden;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+  color: inherit;
 }
 
 #app,
@@ -33,6 +40,7 @@ body {
   flex-direction: column;
   height: 100%;
   min-height: 100%;
+  overflow: hidden;
 }
 
 .app-header {
@@ -41,7 +49,7 @@ body {
   justify-content: space-between;
   background: var(--header);
   color: var(--blue-dark);
-  padding: 14px 16px;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 16px 14px;
 }
 
 .brand {
@@ -166,6 +174,7 @@ main {
   display: flex;
   background: var(--card);
   border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .tab {
@@ -191,6 +200,7 @@ main {
   height: 100%;
   overflow: hidden;
   background: #fff;
+  touch-action: none;
 }
 
 .map-image {
@@ -199,6 +209,7 @@ main {
   height: auto;
   user-select: none;
   -webkit-user-drag: none;
+  -webkit-touch-callout: none;
 }
 
 .picker {
@@ -220,7 +231,7 @@ main {
   gap: 12px;
   background: var(--header);
   color: var(--blue-dark);
-  padding: 12px 16px;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px;
 }
 
 .picker-header h2 {
@@ -242,7 +253,7 @@ main {
 .station-list {
   list-style: none;
   margin: 0;
-  padding: 8px 0 24px;
+  padding: 8px 0 calc(24px + env(safe-area-inset-bottom, 0px));
   overflow: auto;
 }
 

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-BARTist is a small [Tauri 2](https://tauri.app) desktop app for BART train departures and a zoomable system map. Keep it extremely simple.
+BARTist is a small [Tauri 2](https://tauri.app) app for BART train departures and a zoomable system map, on desktop and iOS. Keep it extremely simple.
 
 ## Stack
 
@@ -16,6 +16,7 @@ BARTist is a small [Tauri 2](https://tauri.app) desktop app for BART train depar
 - `src/components/TrainsView.vue`, `src/components/MapView.vue`
 - `src/assets/BART_cc_map.png` — bundled system map
 - `src-tauri/tauri.conf.json` — window, CSP, bundle id `net.unix1.bartist`
+- `src-tauri/Info.ios.plist` — iOS orientation and status bar
 
 ## Features
 
@@ -33,12 +34,16 @@ If you change API hosts, update CSP `connect-src` in `tauri.conf.json` (`https:/
 ```sh
 npm install
 npm run tauri dev
+npm run tauri ios init
+npm run tauri ios dev
 ```
 
-This is a native Tauri window. Verify with `npm run tauri dev`.
+Desktop is a native Tauri window; verify with `npm run tauri dev`. iOS uses the same UI in a WKWebView; verify with `npm run tauri ios dev` on the Simulator.
+
+The generated Xcode project lives in `src-tauri/gen/` (gitignored). Run `tauri ios init` after a fresh clone.
 
 ## Conventions
 
 - Prefer small, local edits. No router, Pinia, or TypeScript unless asked.
-- Keep the UI compact and phone-like (window is 420×780).
+- Keep the UI compact and phone-like (desktop window is 420×780). Respect iOS safe areas.
 - Do not commit unless asked.
