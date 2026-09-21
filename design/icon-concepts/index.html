@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BARTist icon concepts</title>
+  <style>
+    :root {
+      --bg: #0f1720;
+      --panel: #1a2430;
+      --text: #f3f4f6;
+      --muted: #9aa4b2;
+      --blue: #3d7ec9;
+      --yellow: #ffd100;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 32px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .lead {
+      color: var(--muted);
+      margin: 0 0 28px;
+      max-width: 60ch;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .card h2 {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+    }
+    .card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      min-height: 2.6em;
+    }
+    .row {
+      display: flex;
+      align-items: flex-end;
+      gap: 16px;
+    }
+    .tile {
+      width: 160px;
+      height: 160px;
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      flex-shrink: 0;
+    }
+    .tile img { width: 100%; height: 100%; display: block; }
+    .sizes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sizes div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sizes span {
+      width: 36px;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+    .sizes img {
+      border-radius: 22%;
+      display: block;
+      background: #111;
+    }
+    .tags {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      font-size: 0.72rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(61,126,201,0.25);
+      color: #cfe2f8;
+    }
+    .tag.y { background: rgba(255,209,0,0.18); color: #ffe566; }
+  </style>
+</head>
+<body>
+  <h1>BARTist icon concepts</h1>
+  <p class="lead">Five original directions — train, artsy (bARTist), electric — in the app’s blue / yellow. Pick a favorite (or mix), then we refine and ship it as the app icon.</p>
+  <div class="grid">
+    <article class="card" id="A">
+      <h2>A · Electric nose</h2>
+      <p>Clear train face with a yellow bolt in the windshield. Most “transit app” readable.</p>
+      <div class="row">
+        <div class="tile"><img src="A-electric-nose.svg" alt="A"></div>
+        <div class="sizes">
+          <div><span>64</span><img src="A-electric-nose.svg" width="64" height="64"></div>
+          <div><span>32</span><img src="A-electric-nose.svg" width="32" height="32"></div>
+          <div><span>16</span><img src="A-electric-nose.svg" width="16" height="16"></div>
+        </div>
+      </div>
+      <div class="tags"><span class="tag">train</span><span class="tag y">electric</span></div>
+    </article>
+    <article class="card" id="B">
+      <h2>B · Brush track</h2>
+      <p>Calligraphic stroke as a rail curve + spark at the tip. Most “artist” of the set.</p>
+      <div class="row">
+        <div class="tile"><img src="B-brush-track.svg" alt="B"></div>
+        <div class="sizes">
+          <div><span>64</span><img src="B-brush-track.svg" width="64" height="64"></div>
+          <div><span>32</span><img src="B-brush-track.svg" width="32" height="32"></div>
+          <div><span>16</span><img src="B-brush-track.svg" width="16" height="16"></div>
+        </div>
+      </div>
+      <div class="tags"><span class="tag">artsy</span><span class="tag y">electric</span><span class="tag">rail</span></div>
+    </article>
+    <article class="card" id="C">
+      <h2>C · Monogram bolt</h2>
+      <p>Bold “B” with bolt through it and paint dabs. Strong wordmark energy for BARTist.</p>
+      <div class="row">
+        <div class="tile"><img src="C-monogram-bolt.svg" alt="C"></div>
+        <div class="sizes">
+          <div><span>64</span><img src="C-monogram-bolt.svg" width="64" height="64"></div>
+          <div><span>32</span><img src="C-monogram-bolt.svg" width="32" height="32"></div>
+          <div><span>16</span><img src="C-monogram-bolt.svg" width="16" height="16"></div>
+        </div>
+      </div>
+      <div class="tags"><span class="tag">artsy</span><span class="tag y">electric</span><span class="tag">letter</span></div>
+    </article>
+    <article class="card" id="D">
+      <h2>D · Palette car</h2>
+      <p>Painter’s palette as a train car — wells as windows, bolt in the door, brush peeking out.</p>
+      <div class="row">
+        <div class="tile"><img src="D-palette-car.svg" alt="D"></div>
+        <div class="sizes">
+          <div><span>64</span><img src="D-palette-car.svg" width="64" height="64"></div>
+          <div><span>32</span><img src="D-palette-car.svg" width="32" height="32"></div>
+          <div><span>16</span><img src="D-palette-car.svg" width="16" height="16"></div>
+        </div>
+      </div>
+      <div class="tags"><span class="tag">train</span><span class="tag">artsy</span><span class="tag y">electric</span></div>
+    </article>
+    <article class="card" id="E">
+      <h2>E · Spark rails</h2>
+      <p>Minimal: yellow bolt rising from twin rails. Cleanest at tiny sizes.</p>
+      <div class="row">
+        <div class="tile"><img src="E-spark-rails.svg" alt="E"></div>
+        <div class="sizes">
+          <div><span>64</span><img src="E-spark-rails.svg" width="64" height="64"></div>
+          <div><span>32</span><img src="E-spark-rails.svg" width="32" height="32"></div>
+          <div><span>16</span><img src="E-spark-rails.svg" width="16" height="16"></div>
+        </div>
+      </div>
+      <div class="tags"><span class="tag y">electric</span><span class="tag">rail</span><span class="tag">minimal</span></div>
+    </article>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BARTist concept C: B monogram with bolt">
+  <defs>
+    <linearGradient id="c-bg" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#245988"/>
+      <stop offset="100%" stop-color="#4a8fd4"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#c-bg)"/>
+  <!-- artsy B: thick rounded letterform -->
+  <path fill="#ffffff" d="
+    M140 108
+    H250
+    C318 108 366 148 366 206
+    C366 242 346 270 316 284
+    C356 298 386 334 386 384
+    C386 448 328 492 250 492
+    H140
+    C124 492 112 480 112 464
+    V136
+    C112 120 124 108 140 108
+    Z
+    M184 168
+    V248
+    H246
+    C278 248 298 230 298 206
+    C298 182 278 168 246 168
+    H184
+    Z
+    M184 308
+    V432
+    H250
+    C290 432 314 410 314 384
+    C314 358 290 308 250 308
+    H184
+    Z"/>
+  <!-- train window dots in lower bowl (subtle transit cue) -->
+  <circle cx="220" cy="370" r="14" fill="#3d7ec9"/>
+  <circle cx="262" cy="370" r="14" fill="#3d7ec9"/>
+  <!-- electric bolt cutting through the B -->
+  <path fill="#ffd100" d="
+    M300 96
+    L248 220
+    L286 220
+    L232 360
+    L320 196
+    L280 196
+    Z"/>
+  <!-- paint dab / artist accent -->
+  <circle cx="392" cy="128" r="22" fill="#ffd100"/>
+  <circle cx="414" cy="152" r="12" fill="#ffe566"/>
+  <circle cx="372" cy="150" r="8" fill="#fff0a0"/>
+</svg>

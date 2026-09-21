@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BARTist concept D: palette train car">
+  <defs>
+    <linearGradient id="d-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d7ec9"/>
+      <stop offset="100%" stop-color="#2b5f9a"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#d-bg)"/>
+  <!-- artist palette body, oriented like a train car -->
+  <path fill="#ffffff" d="
+    M86 210
+    C86 170 118 140 160 140
+    H360
+    C420 140 452 178 452 230
+    C452 270 430 300 392 312
+    C410 330 420 356 420 386
+    C420 430 384 460 336 460
+    H170
+    C120 460 86 424 86 376
+    V210
+    Z"/>
+  <!-- thumb hole = headlight / tunnel -->
+  <circle cx="378" cy="232" r="36" fill="#2b5f9a"/>
+  <!-- paint wells as windows (train + art) -->
+  <circle cx="170" cy="220" r="28" fill="#3d7ec9"/>
+  <circle cx="240" cy="220" r="28" fill="#ffd100"/>
+  <circle cx="310" cy="220" r="28" fill="#2b5f9a"/>
+  <!-- lower paint well / door -->
+  <rect x="150" y="300" width="150" height="96" rx="28" fill="#e8f1fa"/>
+  <!-- electric bolt in door -->
+  <path fill="#ffd100" d="
+    M240 310
+    L210 360
+    H232
+    L214 392
+    L264 340
+    H240
+    Z"/>
+  <!-- wheels -->
+  <circle cx="180" cy="456" r="26" fill="#1a1a1a"/>
+  <circle cx="180" cy="456" r="10" fill="#ffd100"/>
+  <circle cx="300" cy="456" r="26" fill="#1a1a1a"/>
+  <circle cx="300" cy="456" r="10" fill="#ffd100"/>
+  <!-- brush handle peeking out (artsy) -->
+  <g transform="rotate(-28 420 140)">
+    <rect x="400" y="70" width="18" height="90" rx="6" fill="#2b5f9a"/>
+    <path fill="#ffd100" d="M396 60 h26 l-4 28 h-18 z"/>
+    <path fill="#ffffff" d="M402 52 h14 l2 12 h-18 z"/>
+  </g>
+</svg>

@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import TrainsView from "./components/TrainsView.vue";
 import MapView from "./components/MapView.vue";
+import appIcon from "./assets/bartist-icon.svg";
 
 const tab = ref("trains");
 const loading = ref(false);
@@ -10,7 +11,10 @@ const loading = ref(false);
 <template>
   <div class="app">
     <header class="app-header">
-      <h1>BARTist</h1>
+      <div class="brand">
+        <img class="brand-icon" :src="appIcon" width="32" height="32" alt="" />
+        <h1>BARTist</h1>
+      </div>
       <div class="spinner" :hidden="!loading"></div>
     </header>
 
