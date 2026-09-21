@@ -44,6 +44,20 @@ body {
   padding: 14px 16px;
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
 .app-header h1 {
   margin: 0;
   font-size: 1.4rem;

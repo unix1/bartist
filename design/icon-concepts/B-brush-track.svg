@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BARTist concept B: brushstroke track">
+  <defs>
+    <linearGradient id="b-bg" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#1e4d7a"/>
+      <stop offset="100%" stop-color="#3d7ec9"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#b-bg)"/>
+  <!-- expressive brush stroke forming an S-curve rail -->
+  <path fill="#ffffff" fill-rule="evenodd" d="
+    M92 360
+    C120 300 170 250 240 220
+    C300 194 350 168 380 120
+    C392 100 420 108 412 132
+    C392 190 340 230 276 258
+    C220 282 176 320 156 372
+    C148 392 120 388 112 368
+    C104 350 96 380 92 360
+    Z
+    M150 348
+    C168 308 206 278 252 258
+    C304 236 350 204 370 156
+    C352 198 310 228 258 250
+    C206 274 168 308 150 348
+    Z"/>
+  <!-- yellow accent stroke (artist mark) -->
+  <path fill="none" stroke="#ffd100" stroke-width="22" stroke-linecap="round"
+        d="M118 378 C160 320 220 278 292 250 C348 228 390 190 418 140"/>
+  <!-- small electric spark at brush tip -->
+  <g transform="translate(404 108)">
+    <path fill="#ffd100" d="M12 -28 L-8 4 H6 L-10 34 L22 0 H4 Z"/>
+  </g>
+  <!-- twin rails suggestion under stroke -->
+  <path fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="10" stroke-linecap="round"
+        d="M86 400 C140 360 200 340 270 320"/>
+  <path fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="10" stroke-linecap="round"
+        d="M70 424 C130 380 200 358 280 336"/>
+</svg>

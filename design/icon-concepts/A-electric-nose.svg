@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BARTist concept A: electric train nose">
+  <defs>
+    <linearGradient id="a-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2b5f9a"/>
+      <stop offset="100%" stop-color="#3d7ec9"/>
+    </linearGradient>
+  </defs>
+  <!-- rounded app tile -->
+  <rect width="512" height="512" rx="108" fill="url(#a-bg)"/>
+  <!-- soft glow disk -->
+  <circle cx="256" cy="248" r="168" fill="#1f4a7a" opacity="0.35"/>
+  <!-- train body -->
+  <path fill="#ffffff" d="
+    M118 300
+    C118 210 170 128 256 128
+    C342 128 394 210 394 300
+    L394 372
+    C394 392 378 408 358 408
+    L154 408
+    C134 408 118 392 118 372
+    Z"/>
+  <!-- roof stripe -->
+  <path fill="#ffd100" d="
+    M168 168
+    C196 142 224 132 256 132
+    C288 132 316 142 344 168
+    L330 188
+    C308 168 282 160 256 160
+    C230 160 204 168 182 188
+    Z"/>
+  <!-- windshield -->
+  <path fill="#1a3a5c" d="
+    M156 250
+    C168 210 206 178 256 178
+    C306 178 344 210 356 250
+    L356 292
+    C356 304 346 314 334 314
+    L178 314
+    C166 314 156 304 156 292
+    Z"/>
+  <!-- windshield highlight -->
+  <path fill="#5ba3e0" opacity="0.55" d="
+    M176 248
+    C188 220 218 196 256 196
+    C268 196 280 200 290 206
+    L210 286
+    C192 278 180 264 176 248
+    Z"/>
+  <!-- lightning bolt (electric) -->
+  <path fill="#ffd100" d="
+    M278 196
+    L236 268
+    L262 268
+    L234 320
+    L292 240
+    L264 240
+    Z"/>
+  <!-- coupler / bumper -->
+  <rect x="196" y="392" width="120" height="22" rx="8" fill="#ffd100"/>
+  <!-- headlights -->
+  <circle cx="176" cy="356" r="18" fill="#ffd100"/>
+  <circle cx="336" cy="356" r="18" fill="#ffd100"/>
+  <circle cx="176" cy="356" r="8" fill="#fff8c8"/>
+  <circle cx="336" cy="356" r="8" fill="#fff8c8"/>
+</svg>
