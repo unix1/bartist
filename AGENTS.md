@@ -15,7 +15,7 @@ BARTist is a small [Tauri 2](https://tauri.app) app for BART train departures an
 - `src/api.js` — BART fetch helpers
 - `src/components/TrainsView.vue`, `src/components/MapView.vue`
 - `src/assets/BART_cc_map.png` — bundled system map
-- `src-tauri/tauri.conf.json` — window, CSP, bundle id `net.unix1.bartist`
+- `src-tauri/tauri.conf.json` — window, CSP, bundle id `app.bartist`
 - `src-tauri/Info.ios.plist` — iOS orientation and status bar
 
 ## Features
@@ -34,7 +34,7 @@ If you change API hosts, update CSP `connect-src` in `tauri.conf.json` (`https:/
 ```sh
 npm install
 npm run tauri dev
-npm run tauri ios init
+npm run tauri ios init -- --ci
 npm run tauri ios dev
 ```
 

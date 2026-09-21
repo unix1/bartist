@@ -20,7 +20,7 @@ npm run tauri dev
 Requires [Xcode](https://developer.apple.com/xcode/), [CocoaPods](https://cocoapods.org), and the Rust iOS targets (`aarch64-apple-ios`, `aarch64-apple-ios-sim`, `x86_64-apple-ios`).
 
 ```sh
-npm run tauri ios init
+npm run tauri ios init -- --ci
 npm run tauri ios dev
 ```
 
