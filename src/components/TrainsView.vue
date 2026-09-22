@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { DEFAULT_STATION, formatArrival, loadDepartures, loadStations } from "../api.js";
 
 const emit = defineEmits(["loading"]);
@@ -9,6 +9,7 @@ const selectedCode = ref(DEFAULT_STATION);
 const destinations = ref([]);
 const status = ref("");
 const pickerOpen = ref(false);
+const stationList = ref(null);
 
 const selectedName = computed(() => {
   return stations.value.find((station) => station.code === selectedCode.value)?.name ?? "Select a station";
@@ -40,6 +41,14 @@ function onKeydown(event) {
     pickerOpen.value = false;
   }
 }
+
+watch(pickerOpen, async (open) => {
+  if (!open) {
+    return;
+  }
+  await nextTick();
+  stationList.value?.querySelector(".selected")?.scrollIntoView({ block: "center" });
+});
 
 onMounted(async () => {
   document.addEventListener("keydown", onKeydown);
@@ -82,9 +91,16 @@ onUnmounted(() => {
         <button type="button" class="picker-back" @click="pickerOpen = false">Back</button>
         <h2>Select a station</h2>
       </div>
-      <ul class="station-list">
+      <ul ref="stationList" class="station-list">
         <li v-for="station in stations" :key="station.code">
-          <button type="button" @click="selectStation(station.code)">{{ station.name }}</button>
+          <button
+            type="button"
+            :class="{ selected: station.code === selectedCode }"
+            :aria-current="station.code === selectedCode ? 'true' : undefined"
+            @click="selectStation(station.code)"
+          >
+            {{ station.name }}
+          </button>
         </li>
       </ul>
     </div>

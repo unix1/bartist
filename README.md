@@ -1,6 +1,6 @@
 # BARTist
 
-BARTist is a [BART](https://www.bart.gov) train schedule app built with [Tauri](https://tauri.app).
+BARTist is a [BART](https://www.bart.gov) train schedule app built with [Tauri](https://tauri.app) for desktop and iOS.
 
 ## How it works
 
@@ -14,6 +14,20 @@ Requires Rust and Node.js.
 npm install
 npm run tauri dev
 ```
+
+### iOS
+
+Requires [Xcode](https://developer.apple.com/xcode/), [CocoaPods](https://cocoapods.org), and the Rust iOS targets (`aarch64-apple-ios`, `aarch64-apple-ios-sim`, `x86_64-apple-ios`).
+
+```sh
+npm run tauri ios init -- --ci
+npm run tauri icon src-tauri/app-icon.svg
+npm run tauri ios dev
+```
+
+`tauri ios init` seeds the default Tauri icon into the Xcode project. Run `tauri icon` afterward so the home screen uses `src-tauri/app-icon.svg`.
+
+Pass a simulator name to skip the device picker, for example `npm run tauri ios dev "iPhone 17"`.
 
 ## License
 
