@@ -286,7 +286,13 @@ main {
 }
 
 .station-list button:hover,
-.station-list button:focus-visible {
+.station-list button:focus-visible,
+.station-list button.selected {
   background: #e8eefc;
   outline: none;
+}
+
+.station-list button.selected {
+  color: var(--blue-dark);
+  font-weight: 600;
 }
