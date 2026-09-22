@@ -21,8 +21,11 @@ Requires [Xcode](https://developer.apple.com/xcode/), [CocoaPods](https://cocoap
 
 ```sh
 npm run tauri ios init -- --ci
+npm run tauri icon src-tauri/app-icon.svg
 npm run tauri ios dev
 ```
+
+`tauri ios init` seeds the default Tauri icon into the Xcode project. Run `tauri icon` afterward so the home screen uses `src-tauri/app-icon.svg`.
 
 Pass a simulator name to skip the device picker, for example `npm run tauri ios dev "iPhone 17"`.
 
