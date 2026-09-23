@@ -24,7 +24,18 @@ npm run tauri ios init -- --ci
 npm run tauri ios dev
 ```
 
-Pass a simulator name to skip the device picker, for example `npm run tauri ios dev "iPhone 17"`.
+Pass a simulator name to skip the device picker or avoid the default device, for example
+
+```sh
+npm run tauri ios dev -- "iPhone 17"
+```
+
+If multiple simulators share the same name you may need to rename to launch a specific one.
+
+```sh
+xcrun simctl list devices available
+xcrun simctl rename 01234567-890A-BCDE-F012-3456789ABCDE "iPhone 17 Pro iOS 26.5"
+```
 
 ## License
 

@@ -121,7 +121,7 @@ main {
   min-width: 0;
   text-align: left;
   font: inherit;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--text);
   background: transparent;
   border: 0;
@@ -269,10 +269,6 @@ main {
   z-index: 10;
 }
 
-.spinner[hidden] {
-  display: none;
-}
-
 .picker-header {
   display: flex;
   align-items: center;
@@ -313,7 +309,7 @@ main {
   width: 100%;
   text-align: left;
   font: inherit;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   background: transparent;
   border: 0;
   border-bottom: 1px solid var(--line);

@@ -5,7 +5,6 @@ import MapView from "./components/MapView.vue";
 import appIcon from "./assets/bartist-icon.svg";
 
 const tab = ref("trains");
-const loading = ref(false);
 </script>
 
 <template>
@@ -15,11 +14,10 @@ const loading = ref(false);
         <img class="brand-icon" :src="appIcon" width="32" height="32" alt="" />
         <h1>BARTist</h1>
       </div>
-      <div class="spinner" :hidden="!loading"></div>
     </header>
 
     <main>
-      <TrainsView v-show="tab === 'trains'" @loading="loading = $event" />
+      <TrainsView v-show="tab === 'trains'" />
       <MapView v-if="tab === 'map'" />
     </main>
 
