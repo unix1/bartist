@@ -37,6 +37,12 @@ xcrun simctl list devices available
 xcrun simctl rename 01234567-890A-BCDE-F012-3456789ABCDE "iPhone 17 Pro iOS 26.5"
 ```
 
+To open Xcode run
+
+```sh
+npm run tauri ios build -- --open
+```
+
 ## License
 
 BARTist is licensed under the [Apache License 2.0](LICENSE).
