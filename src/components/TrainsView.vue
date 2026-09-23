@@ -10,13 +10,19 @@ const destinations = ref([]);
 const status = ref("");
 const pickerOpen = ref(false);
 const stationList = ref(null);
+const loading = ref(false);
 
 const selectedName = computed(() => {
   return stations.value.find((station) => station.code === selectedCode.value)?.name ?? "Select a station";
 });
 
+function setLoading(value) {
+  loading.value = value;
+  emit("loading", value);
+}
+
 async function refreshDepartures() {
-  emit("loading", true);
+  setLoading(true);
   status.value = "";
   try {
     destinations.value = await loadDepartures(selectedCode.value);
@@ -26,7 +32,7 @@ async function refreshDepartures() {
     status.value = "Could not load departures.";
     console.error(error);
   } finally {
-    emit("loading", false);
+    setLoading(false);
   }
 }
 
@@ -52,14 +58,14 @@ watch(pickerOpen, async (open) => {
 
 onMounted(async () => {
   document.addEventListener("keydown", onKeydown);
-  emit("loading", true);
+  setLoading(true);
   try {
     stations.value = await loadStations();
     await refreshDepartures();
   } catch (error) {
     status.value = "Could not load stations.";
     console.error(error);
-    emit("loading", false);
+    setLoading(false);
   }
 });
 
@@ -70,9 +76,26 @@ onUnmounted(() => {
 
 <template>
   <div class="page trains-page">
-    <button type="button" class="station-button" @click="pickerOpen = true">
-      {{ selectedName }}
-    </button>
+    <div class="station-row">
+      <button type="button" class="station-button" @click="pickerOpen = true">
+        {{ selectedName }}
+      </button>
+      <button
+        type="button"
+        class="refresh-button"
+        :disabled="loading"
+        aria-label="Refresh"
+        @click="refreshDepartures"
+      >
+        <span v-if="loading" class="spinner"></span>
+        <svg v-else width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.75 10h-2.1A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+          />
+        </svg>
+      </button>
+    </div>
     <p v-if="status" class="status">{{ status }}</p>
     <div class="departures">
       <div v-for="destination in destinations" :key="destination.code" class="destination">
