@@ -35,13 +35,12 @@ If you change API hosts, update CSP `connect-src` in `tauri.conf.json` (`https:/
 npm install
 npm run tauri dev
 npm run tauri ios init -- --ci
-npm run tauri icon src-tauri/app-icon.svg
 npm run tauri ios dev
 ```
 
 Desktop is a native Tauri window; verify with `npm run tauri dev`. iOS uses the same UI in a WKWebView; verify with `npm run tauri ios dev` on the Simulator.
 
-The generated Xcode project lives in `src-tauri/gen/` (gitignored). Run `tauri ios init` after a fresh clone, then `tauri icon` so iOS does not keep the default Tauri logo.
+The generated Xcode project lives in `src-tauri/gen/` (gitignored). Run `tauri ios init` after a fresh clone.
 
 ## Conventions
 

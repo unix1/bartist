@@ -103,22 +103,58 @@ main {
   padding: 12px 12px 16px;
 }
 
+.station-row {
+  display: flex;
+  align-items: stretch;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.station-row:hover,
+.station-row:focus-within {
+  border-color: var(--blue);
+}
+
 .station-button {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   text-align: left;
   font: inherit;
   font-size: 1.25rem;
   color: var(--text);
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 14px 16px;
+  background: transparent;
+  border: 0;
+  border-radius: 8px 0 0 8px;
+  padding: 14px 12px 14px 16px;
   cursor: pointer;
 }
 
-.station-button:hover,
 .station-button:focus-visible {
-  border-color: var(--blue);
+  outline: none;
+}
+
+.refresh-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 2.75rem;
+  margin: 0;
+  padding: 0;
+  color: #c5c9cf;
+  background: transparent;
+  border: 0;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+}
+
+.refresh-button:disabled {
+  cursor: default;
+}
+
+.refresh-button:hover:not(:disabled),
+.refresh-button:focus-visible {
+  color: var(--muted);
   outline: none;
 }
 
