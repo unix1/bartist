@@ -2,8 +2,6 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { DEFAULT_STATION, formatArrival, loadDepartures, loadStations } from "../api.js";
 
-const emit = defineEmits(["loading"]);
-
 const stations = ref([]);
 const selectedCode = ref(DEFAULT_STATION);
 const destinations = ref([]);
@@ -16,13 +14,8 @@ const selectedName = computed(() => {
   return stations.value.find((station) => station.code === selectedCode.value)?.name ?? "Select a station";
 });
 
-function setLoading(value) {
-  loading.value = value;
-  emit("loading", value);
-}
-
 async function refreshDepartures() {
-  setLoading(true);
+  loading.value = true;
   status.value = "";
   try {
     destinations.value = await loadDepartures(selectedCode.value);
@@ -32,7 +25,7 @@ async function refreshDepartures() {
     status.value = "Could not load departures.";
     console.error(error);
   } finally {
-    setLoading(false);
+    loading.value = false;
   }
 }
 
@@ -58,14 +51,14 @@ watch(pickerOpen, async (open) => {
 
 onMounted(async () => {
   document.addEventListener("keydown", onKeydown);
-  setLoading(true);
+  loading.value = true;
   try {
     stations.value = await loadStations();
     await refreshDepartures();
   } catch (error) {
     status.value = "Could not load stations.";
     console.error(error);
-    setLoading(false);
+    loading.value = false;
   }
 });
 
