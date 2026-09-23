@@ -72,21 +72,6 @@ button {
   font-weight: 400;
 }
 
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(43, 95, 154, 0.2);
-  border-top-color: var(--blue);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 main {
   flex: 1;
   min-height: 0;
@@ -111,11 +96,6 @@ main {
   border-radius: 8px;
 }
 
-.station-row:hover,
-.station-row:focus-within {
-  border-color: var(--blue);
-}
-
 .station-button {
   flex: 1;
   min-width: 0;
@@ -126,11 +106,12 @@ main {
   background: transparent;
   border: 0;
   border-radius: 8px 0 0 8px;
-  padding: 14px 12px 14px 16px;
+  padding: 14px 2px 14px 12px;
   cursor: pointer;
 }
 
-.station-button:focus-visible {
+.station-button:focus,
+.refresh-button:focus {
   outline: none;
 }
 
@@ -138,9 +119,9 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 2.75rem;
+  flex: 0 0 auto;
   margin: 0;
-  padding: 0;
+  padding: 0 12px 0 2px;
   color: #c5c9cf;
   background: transparent;
   border: 0;
@@ -152,10 +133,19 @@ main {
   cursor: default;
 }
 
-.refresh-button:hover:not(:disabled),
-.refresh-button:focus-visible {
-  color: var(--muted);
-  outline: none;
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(43, 95, 154, 0.2);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .status {

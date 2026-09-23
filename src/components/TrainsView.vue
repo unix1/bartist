@@ -15,6 +15,7 @@ const selectedName = computed(() => {
 });
 
 async function refreshDepartures() {
+  document.activeElement?.blur();
   loading.value = true;
   status.value = "";
   try {
@@ -29,15 +30,26 @@ async function refreshDepartures() {
   }
 }
 
+function openPicker() {
+  pickerOpen.value = true;
+  document.activeElement?.blur();
+}
+
 async function selectStation(code) {
   selectedCode.value = code;
   pickerOpen.value = false;
+  document.activeElement?.blur();
   await refreshDepartures();
+}
+
+function closePicker() {
+  pickerOpen.value = false;
+  document.activeElement?.blur();
 }
 
 function onKeydown(event) {
   if (event.key === "Escape") {
-    pickerOpen.value = false;
+    closePicker();
   }
 }
 
@@ -51,14 +63,12 @@ watch(pickerOpen, async (open) => {
 
 onMounted(async () => {
   document.addEventListener("keydown", onKeydown);
-  loading.value = true;
   try {
     stations.value = await loadStations();
     await refreshDepartures();
   } catch (error) {
     status.value = "Could not load stations.";
     console.error(error);
-    loading.value = false;
   }
 });
 
@@ -70,7 +80,7 @@ onUnmounted(() => {
 <template>
   <div class="page trains-page">
     <div class="station-row">
-      <button type="button" class="station-button" @click="pickerOpen = true">
+      <button type="button" class="station-button" @click="openPicker">
         {{ selectedName }}
       </button>
       <button
@@ -81,7 +91,7 @@ onUnmounted(() => {
         @click="refreshDepartures"
       >
         <span v-if="loading" class="spinner"></span>
-        <svg v-else width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+        <svg v-else width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
           <path
             fill="currentColor"
             d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.75 10h-2.1A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
@@ -104,7 +114,7 @@ onUnmounted(() => {
 
     <div v-if="pickerOpen" class="picker">
       <div class="picker-header">
-        <button type="button" class="picker-back" @click="pickerOpen = false">Back</button>
+        <button type="button" class="picker-back" @click="closePicker">Back</button>
         <h2>Select a station</h2>
       </div>
       <ul ref="stationList" class="station-list">
