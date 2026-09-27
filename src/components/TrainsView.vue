@@ -1,9 +1,16 @@
 <script setup>
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
-import { DEFAULT_STATION, formatArrival, loadDepartures, loadStations } from "../api.js";
+import {
+  DEFAULT_STATION,
+  formatArrival,
+  loadDepartures,
+  loadSelectedStation,
+  loadStations,
+  saveSelectedStation,
+} from "../api.js";
 
 const stations = ref([]);
-const selectedCode = ref(DEFAULT_STATION);
+const selectedCode = ref(loadSelectedStation());
 const destinations = ref([]);
 const status = ref("");
 const pickerOpen = ref(false);
@@ -37,6 +44,7 @@ function openPicker() {
 
 async function selectStation(code) {
   selectedCode.value = code;
+  saveSelectedStation(code);
   pickerOpen.value = false;
   document.activeElement?.blur();
   await refreshDepartures();
@@ -65,6 +73,9 @@ onMounted(async () => {
   document.addEventListener("keydown", onKeydown);
   try {
     stations.value = await loadStations();
+    if (!stations.value.some((station) => station.code === selectedCode.value)) {
+      selectedCode.value = DEFAULT_STATION;
+    }
     await refreshDepartures();
   } catch (error) {
     status.value = "Could not load stations.";
