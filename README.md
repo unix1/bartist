@@ -6,6 +6,8 @@ BARTist is a [BART](https://www.bart.gov) train schedule app built with [Tauri](
 
 It uses the official [BART API](https://www.bart.gov/schedules/developers/api) to fetch stations and departure times, and includes a zoomable system map.
 
+The bundled maps are BART’s [App Map](https://www.bart.gov/schedules/developers/maps), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+
 ## Development
 
 Requires Rust and Node.js.
