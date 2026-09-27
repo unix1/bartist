@@ -1,7 +1,30 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import Panzoom from "@panzoom/panzoom";
-import mapUrl from "../assets/BART_cc_map.png";
+import dayMapUrl from "../assets/bart-map-daytime.png";
+import eveningMapUrl from "../assets/bart-map-evening.png";
+
+const maps = {
+  day: dayMapUrl,
+  evening: eveningMapUrl,
+};
+
+function defaultPeriod() {
+  const hour = Number(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Los_Angeles",
+      hour: "numeric",
+      hourCycle: "h23",
+    }).formatToParts(new Date()).find((part) => part.type === "hour")?.value,
+  );
+  return hour >= 21 ? "evening" : "day";
+}
+
+const period = ref(defaultPeriod());
+const mapUrl = computed(() => maps[period.value]);
+const mapAlt = computed(() =>
+  period.value === "evening" ? "BART evening system map" : "BART daytime system map",
+);
 
 const viewport = ref(null);
 const image = ref(null);
@@ -225,7 +248,27 @@ onUnmounted(() => {
 <template>
   <section class="page map-page">
     <div ref="viewport" class="map-viewport">
-      <img ref="image" class="map-image" :src="mapUrl" alt="BART system map" />
+      <img ref="image" class="map-image" :src="mapUrl" :alt="mapAlt" />
+    </div>
+    <div class="map-period" role="group" aria-label="Service period">
+      <button
+        type="button"
+        :class="{ active: period === 'day' }"
+        :aria-pressed="period === 'day'"
+        aria-label="Daytime map"
+        @click="period = 'day'"
+      >
+        ☀️
+      </button>
+      <button
+        type="button"
+        :class="{ active: period === 'evening' }"
+        :aria-pressed="period === 'evening'"
+        aria-label="Evening map"
+        @click="period = 'evening'"
+      >
+        🌙
+      </button>
     </div>
   </section>
 </template>

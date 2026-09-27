@@ -14,7 +14,7 @@ BARTist is a small [Tauri 2](https://tauri.app) app for BART train departures an
 - `src/main.js`, `src/App.vue`, `src/styles.css` — shell and shared styles
 - `src/api.js` — BART fetch helpers
 - `src/components/TrainsView.vue`, `src/components/MapView.vue`
-- `src/assets/BART_cc_map.png` — bundled system map
+- `src/assets/bart-map-daytime.png`, `src/assets/bart-map-evening.png` — bundled system maps
 - `src-tauri/tauri.conf.json` — window, CSP, bundle id `app.bartist`
 - `src-tauri/Info.ios.plist` — iOS orientation and status bar
 
@@ -23,7 +23,7 @@ BARTist is a small [Tauri 2](https://tauri.app) app for BART train departures an
 Two tabs, matching the old Qt/QML app:
 
 1. **Trains** — station picker overlay, then destination codes with car length and minutes (`Leaving` → “leaving now”).
-2. **Map** — bundled image fitted to the pane. Pan/zoom uses [`@panzoom/panzoom`](https://github.com/timmywil/panzoom): pinch or wheel to zoom, drag only when zoomed, keep the image on screen, double-click to zoom/reset. Do not enable webview page zoom.
+2. **Map** — daytime or evening bundled image fitted to the pane, defaulting to the current Pacific service period. Pan/zoom uses [`@panzoom/panzoom`](https://github.com/timmywil/panzoom): pinch or wheel to zoom, drag only when zoomed, keep the image on screen, double-click to zoom/reset. Do not enable webview page zoom.
 
 BART’s JSON sometimes returns one object instead of an array. Always normalize with `asArray`.
 
