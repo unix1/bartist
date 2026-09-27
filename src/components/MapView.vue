@@ -1,10 +1,49 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import Panzoom from "@panzoom/panzoom";
-import mapUrl from "../assets/BART_cc_map.png";
+import dayMapUrl from "../assets/bart-map-daytime.png";
+import eveningMapUrl from "../assets/bart-map-evening.png";
+
+const maps = {
+  day: dayMapUrl,
+  evening: eveningMapUrl,
+};
+
+function defaultPeriod() {
+  const hour = Number(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Los_Angeles",
+      hour: "numeric",
+      hourCycle: "h23",
+    }).formatToParts(new Date()).find((part) => part.type === "hour")?.value,
+  );
+  return hour >= 21 || hour < 3 ? "evening" : "day";
+}
+
+const period = ref(defaultPeriod());
+const mapUrl = computed(() => maps[period.value]);
+const mapAlt = computed(() =>
+  period.value === "evening" ? "BART evening system map" : "BART daytime system map",
+);
+
+async function openExternal(event) {
+  event.preventDefault();
+  const url = event.currentTarget.href;
+  const invoke = window.__TAURI__?.core?.invoke;
+  if (invoke) {
+    try {
+      await invoke("plugin:opener|open_url", { url });
+      return;
+    } catch {
+      // Fall through to the browser window.
+    }
+  }
+  window.open(url, "_blank", "noopener,noreferrer");
+}
 
 const viewport = ref(null);
 const image = ref(null);
+const credit = ref(null);
 let panzoom = null;
 let gestureStart = 1;
 let pinchStart = 0;
@@ -100,11 +139,18 @@ function onDoubleClick(event) {
   toggleZoom(event.clientX, event.clientY);
 }
 
+function syncCreditScale(scale) {
+  if (credit.value) {
+    credit.value.style.transform = scale > 1.001 ? `scale(${1 / scale})` : "";
+  }
+}
+
 function onPanzoomChange(event) {
   if (!panzoom || clamping) {
     return;
   }
   const { x, y, scale } = event.detail;
+  syncCreditScale(scale);
   const next = clampPan(x, y, scale);
   if (Math.abs(next.x - x) < 0.01 && Math.abs(next.y - y) < 0.01) {
     return;
@@ -225,7 +271,35 @@ onUnmounted(() => {
 <template>
   <section class="page map-page">
     <div ref="viewport" class="map-viewport">
-      <img ref="image" class="map-image" :src="mapUrl" alt="BART system map" />
+      <div ref="image" class="map-frame">
+        <img class="map-image" :src="mapUrl" :alt="mapAlt" />
+        <p ref="credit" class="map-credit" @pointerdown.stop>
+          ©
+          <a href="https://www.bart.gov/schedules/developers/maps" rel="noopener noreferrer" @click="openExternal">BART</a>
+          ·
+          <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener noreferrer" @click="openExternal">CC BY 3.0</a>
+        </p>
+      </div>
+    </div>
+    <div class="map-period" role="group" aria-label="Service period">
+      <button
+        type="button"
+        :class="{ active: period === 'day' }"
+        :aria-pressed="period === 'day'"
+        aria-label="Daytime map"
+        @click="period = 'day'"
+      >
+        ☀️
+      </button>
+      <button
+        type="button"
+        :class="{ active: period === 'evening' }"
+        :aria-pressed="period === 'evening'"
+        aria-label="Evening map"
+        @click="period = 'evening'"
+      >
+        🌙
+      </button>
     </div>
   </section>
 </template>
