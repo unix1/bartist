@@ -17,7 +17,7 @@ function defaultPeriod() {
       hourCycle: "h23",
     }).formatToParts(new Date()).find((part) => part.type === "hour")?.value,
   );
-  return hour >= 21 ? "evening" : "day";
+  return hour >= 21 || hour < 3 ? "evening" : "day";
 }
 
 const period = ref(defaultPeriod());

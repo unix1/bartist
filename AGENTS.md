@@ -23,7 +23,7 @@ BARTist is a small [Tauri 2](https://tauri.app) app for BART train departures an
 Two tabs, matching the old Qt/QML app:
 
 1. **Trains** — station picker overlay, then destination codes with car length and minutes (`Leaving` → “leaving now”).
-2. **Map** — daytime or evening bundled image fitted to the pane, defaulting to the current Pacific service period. Pan/zoom uses [`@panzoom/panzoom`](https://github.com/timmywil/panzoom): pinch or wheel to zoom, drag only when zoomed, keep the image on screen, double-click to zoom/reset. Do not enable webview page zoom.
+2. **Map** — daytime or evening bundled image fitted to the pane, defaulting to evening from 9pm–3am Pacific. Pan/zoom uses [`@panzoom/panzoom`](https://github.com/timmywil/panzoom): pinch or wheel to zoom, drag only when zoomed, keep the image on screen, double-click to zoom/reset. Do not enable webview page zoom.
 
 BART’s JSON sometimes returns one object instead of an array. Always normalize with `asArray`.
 
