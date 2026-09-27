@@ -14,7 +14,7 @@ BARTist is a small [Tauri 2](https://tauri.app) app for BART train departures an
 - `src/main.js`, `src/App.vue`, `src/styles.css` — shell and shared styles
 - `src/api.js` — BART fetch helpers
 - `src/components/TrainsView.vue`, `src/components/MapView.vue`
-- `src/assets/bart-map-daytime.png`, `src/assets/bart-map-evening.png` — bundled system maps
+- `src/assets/bart-map-daytime.png`, `src/assets/bart-map-evening.png` — bundled BART App Maps (CC BY 3.0)
 - `src-tauri/tauri.conf.json` — window, CSP, bundle id `app.bartist`
 - `src-tauri/Info.ios.plist` — iOS orientation and status bar
 

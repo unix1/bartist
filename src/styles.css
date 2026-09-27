@@ -229,6 +229,27 @@ main {
   box-shadow: inset 0 -3px 0 var(--yellow);
 }
 
+.map-frame {
+  position: relative;
+  width: 100%;
+}
+
+.map-credit {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  z-index: 1;
+  margin: 0;
+  font-size: 0.62rem;
+  line-height: 1;
+  color: rgba(92, 92, 92, 0.8);
+  transform-origin: bottom right;
+}
+
+.map-credit a {
+  color: inherit;
+}
+
 .map-period {
   position: absolute;
   left: 50%;
