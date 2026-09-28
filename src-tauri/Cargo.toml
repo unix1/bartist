@@ -5,6 +5,7 @@ description = "BART train schedule app"
 authors = ["Unix One"]
 edition = "2021"
 license = "Apache-2.0"
+exclude = ["gen"]
 
 [lib]
 name = "bartist_lib"
