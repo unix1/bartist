@@ -39,6 +39,12 @@ xcrun simctl list devices available
 xcrun simctl rename 01234567-890A-BCDE-F012-3456789ABCDE "iPhone 17 Pro iOS 26.5"
 ```
 
+Then you can use that name with
+
+```
+npm run tauri ios dev -- "iPhone 17 Pro iOS 26.5"
+```
+
 To open Xcode run
 
 ```sh
