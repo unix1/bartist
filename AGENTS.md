@@ -40,7 +40,7 @@ npm run tauri ios dev
 
 Desktop is a native Tauri window; verify with `npm run tauri dev`. iOS uses the same UI in a WKWebView; verify with `npm run tauri ios dev` on the Simulator.
 
-The generated Xcode project lives in `src-tauri/gen/` (gitignored). Run `tauri ios init` after a fresh clone.
+The generated Xcode project lives in `src-tauri/gen/`. Commit that tree so iOS signing and bundle settings survive a clone. Do not commit `gen/apple/build/` or `gen/apple/Externals/` (local archives and the Rust static lib). `tauri ios init` is only needed if `gen/apple` is missing.
 
 ## Conventions
 
