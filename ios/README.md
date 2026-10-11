@@ -1,6 +1,6 @@
-# BARTist (native iOS)
+# BARTist
 
-SwiftUI iOS app for live [BART](https://www.bart.gov) departures and a zoomable system map. This is a native sibling of the Tauri/Vue app in the repo root. Bundle id is `app.bartist.native` so both can be installed at once.
+SwiftUI iOS app for live [BART](https://www.bart.gov) departures and a zoomable system map. Bundle id is `app.bartist`.
 
 It uses the official [BART API](https://www.bart.gov/schedules/developers/api). The bundled maps are BART’s [App Map](https://www.bart.gov/schedules/developers/maps), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 

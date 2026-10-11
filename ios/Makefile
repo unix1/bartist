@@ -1,6 +1,6 @@
 SCHEME := BARTist
 PROJECT := BARTist.xcodeproj
-BUNDLE := app.bartist.native
+BUNDLE := app.bartist
 SIMULATOR ?= iPhone 17
 DESTINATION := platform=iOS Simulator,name=$(SIMULATOR)
 DERIVED := .derived

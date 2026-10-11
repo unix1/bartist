@@ -16,7 +16,7 @@ targets:
       - path: BARTist
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: app.bartist.native
+        PRODUCT_BUNDLE_IDENTIFIER: app.bartist
         PRODUCT_NAME: BARTist
         SWIFT_VERSION: "5.0"
         TARGETED_DEVICE_FAMILY: 1

@@ -1,13 +1,13 @@
 # AGENTS.md
 
-Native SwiftUI iOS app for BART train departures and a zoomable system map. Keep it extremely simple. Edit only `ios/` unless asked to change the Tauri/Vue app.
+SwiftUI iOS app for BART train departures and a zoomable system map. Keep it extremely simple.
 
 ## Stack
 
 - **UI:** SwiftUI in `BARTist/`. iPhone only, portrait, deployment target 17.0.
 - **Project:** [XcodeGen](https://github.com/yonaskolb/XcodeGen) `project.yml` generates `BARTist.xcodeproj`. Commit both. Do not hand-edit the pbxproj when `project.yml` can do it.
 - **Data:** official [BART API](https://www.bart.gov/schedules/developers/api) (`https://api.bart.gov/api/`) with `json=y`. Default station is `12TH`. Use the public key published on that page.
-- **Bundle id:** `app.bartist.native` so this app can sit next to Tauri (`app.bartist`).
+- **Bundle id:** `app.bartist`.
 - **License:** Apache 2.0 (repo root).
 
 ## Layout
@@ -48,5 +48,4 @@ make simulators
 
 - Prefer small, local edits. No extra frameworks, SPM packages, or CocoaPods unless asked.
 - Keep the UI compact and phone-like. Respect safe areas. Do not repeat the app name as a large title; use the brand icon plus the tab name.
-- Leave `src/` and `src-tauri/` alone.
 - Do not commit unless asked. Do not commit a `DEVELOPMENT_TEAM` or signing files.

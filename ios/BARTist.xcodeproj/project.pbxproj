@@ -281,7 +281,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.bartist.native;
+				PRODUCT_BUNDLE_IDENTIFIER = app.bartist;
 				PRODUCT_NAME = BARTist;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -307,7 +307,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.bartist.native;
+				PRODUCT_BUNDLE_IDENTIFIER = app.bartist;
 				PRODUCT_NAME = BARTist;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
