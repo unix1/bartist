@@ -26,20 +26,6 @@ struct TrainsView: View {
                 .padding(.top, 4)
                 .padding(.bottom, 8)
 
-                Button {
-                    store.pickerOpen = true
-                } label: {
-                    Text(store.selectedName)
-                        .font(.title2)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
-                }
-                .controlSize(.large)
-                .nativeChip()
-                .padding(.horizontal, 16)
-                .padding(.bottom, 4)
-
                 ScrollView {
                     VStack(alignment: .leading, spacing: 10) {
                         if !store.status.isEmpty, store.destinations.isEmpty {
@@ -65,6 +51,20 @@ struct TrainsView: View {
                 }
                 .refreshable {
                     await store.refreshDepartures()
+                }
+                .safeAreaInset(edge: .top, spacing: 8) {
+                    Button {
+                        store.pickerOpen = true
+                    } label: {
+                        Text(store.selectedName)
+                            .font(.title2)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                            .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
+                    }
+                    .controlSize(.large)
+                    .nativeChip()
+                    .padding(.horizontal, 16)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
