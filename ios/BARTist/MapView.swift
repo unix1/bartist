@@ -121,8 +121,11 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
         UIView.transition(with: imageView, duration: 0.28, options: .transitionCrossDissolve) {
             self.imageView.image = next
         }
-        fittedForSize = .zero
-        scheduleFit()
+        if let next, next.size != imageView.bounds.size, fittedForSize != .zero {
+            imageView.frame = CGRect(origin: .zero, size: next.size)
+            contentSize = next.size
+        }
+        positionCredit()
     }
 
     override func layoutSubviews() {
@@ -244,11 +247,14 @@ private final class MapCreditView: UITextView, UITextViewDelegate {
 
     func textView(
         _ textView: UITextView,
-        shouldInteractWith URL: URL,
-        in characterRange: NSRange,
-        interaction: UITextItemInteraction
-    ) -> Bool {
-        UIApplication.shared.open(URL)
-        return false
+        primaryActionFor textItem: UITextItem,
+        defaultAction: UIAction
+    ) -> UIAction? {
+        guard case let .link(url) = textItem.content else {
+            return defaultAction
+        }
+        return UIAction { _ in
+            UIApplication.shared.open(url)
+        }
     }
 }
