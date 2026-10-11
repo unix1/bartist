@@ -31,6 +31,19 @@ targets:
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.travel
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
+  BARTistUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: BARTistUITests
+    dependencies:
+      - target: BARTist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.bartist.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: BARTist
+        CODE_SIGN_STYLE: Automatic
 schemes:
   BARTist:
     build:
@@ -38,9 +51,22 @@ schemes:
         BARTist: all
     run:
       config: Debug
+    test:
+      config: Debug
+      targets:
+        - BARTistUITests
     profile:
       config: Release
     analyze:
       config: Debug
     archive:
       config: Release
+  BARTistUITests:
+    build:
+      targets:
+        BARTist: all
+        BARTistUITests: [test]
+    test:
+      config: Debug
+      targets:
+        - BARTistUITests

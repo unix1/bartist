@@ -8,7 +8,7 @@ APP := $(DERIVED)/Build/Products/Debug-iphonesimulator/BARTist.app
 
 .DEFAULT_GOAL := help
 
-.PHONY: help generate open build run simulators
+.PHONY: help generate open build run simulators screenshots
 
 help:
 	@echo "make generate     regenerate $(PROJECT) from project.yml"
@@ -16,6 +16,7 @@ help:
 	@echo "make build        build for the iOS Simulator ($(SIMULATOR))"
 	@echo "make run          build, boot that simulator, install, and launch"
 	@echo "make simulators   list available simulators"
+	@echo "make screenshots  capture Fastlane screenshots"
 	@echo ""
 	@echo "SIMULATOR='iPhone 17 Pro iOS 26.5' make run"
 
@@ -38,6 +39,9 @@ run: build
 	xcrun simctl bootstatus "$(SIMULATOR)" -b
 	xcrun simctl install booted "$(APP)"
 	xcrun simctl launch booted $(BUNDLE)
+
+screenshots: generate
+	fastlane screenshots
 
 simulators:
 	xcrun simctl list devices available
