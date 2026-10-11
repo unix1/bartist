@@ -30,10 +30,12 @@ struct TrainsView: View {
                     store.pickerOpen = true
                 } label: {
                     Text(store.selectedName)
+                        .font(.title2)
                         .lineLimit(1)
                         .truncationMode(.tail)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
                 }
+                .controlSize(.large)
                 .nativeChip()
                 .padding(.horizontal, 16)
                 .padding(.bottom, 4)
@@ -84,10 +86,10 @@ private struct DestinationRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: 18) {
             Text(destination.code)
-                .font(.title3)
+                .font(.title2)
                 .foregroundStyle(Palette.blueDark)
-                .frame(minWidth: 52, alignment: .leading)
-                .padding(.top, 4)
+                .frame(minWidth: 58, alignment: .leading)
+                .padding(.top, 2)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 6) {
@@ -98,7 +100,7 @@ private struct DestinationRow: View {
                             Text(BartAPI.formatArrival(train.minutes))
                                 .foregroundStyle(Palette.muted)
                         }
-                        .font(.subheadline)
+                        .font(.body)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 6)
                         .background(Palette.row, in: RoundedRectangle(cornerRadius: 8))
