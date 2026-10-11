@@ -13,6 +13,7 @@ struct BrandTitle: View {
                 .font(.largeTitle.bold())
         }
         .accessibilityElement(children: .combine)
+        .accessibilityLabel(title)
     }
 }
 

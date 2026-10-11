@@ -14,7 +14,12 @@ enum BartAPI {
     }
 
     static func loadSelectedStation() -> String {
-        UserDefaults.standard.string(forKey: stationKey) ?? defaultStation
+        let arguments = ProcessInfo.processInfo.arguments
+        if let flag = arguments.firstIndex(of: "-bartist.station"),
+           arguments.indices.contains(flag + 1) {
+            return arguments[flag + 1]
+        }
+        return UserDefaults.standard.string(forKey: stationKey) ?? defaultStation
     }
 
     static func saveSelectedStation(_ code: String) {

@@ -7,20 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		161CBA77276930A61D0B22AF /* Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734E791D2CE2F9120BEAB571 /* Screenshots.swift */; };
 		56ABA71883149C04EF4952AD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22312D50CAF10B105DF8C01 /* MapView.swift */; };
 		A753AAB7FD14503755724553 /* BrandTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29102311A51C35BB968021C /* BrandTitle.swift */; };
 		B6730457762443221FBC65C0 /* TrainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F019489443077A3352C9D /* TrainsView.swift */; };
+		C28827BF8623847BE6EA7719 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A7D63BAAC224E2D694B1B /* SnapshotHelper.swift */; };
 		CDCA5C37A8E44A485AB7D4EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9200FB89E5CCC7A1D5CBDA28 /* Assets.xcassets */; };
 		D609B7AFB8226818A52E7250 /* BARTistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7321A6945F4664D77B59F1AC /* BARTistApp.swift */; };
 		DBE44DBF4C33FD20B1FBB81B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2848FB9EE2AE04E5FF884D49 /* RootView.swift */; };
 		FA7A8C08B4567E5DC30F5446 /* BartAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E29C70B1782E67282542E2C /* BartAPI.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		16D8C08EA25B049E29D454B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 165E7AE153D78A33DAB43D87 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F52F427E78515AE5E8B37B0;
+			remoteInfo = BARTist;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		21A308DC7D9E26433647BB19 /* BARTist.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BARTist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2848FB9EE2AE04E5FF884D49 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		4E29C70B1782E67282542E2C /* BartAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BartAPI.swift; sourceTree = "<group>"; };
+		680A7D63BAAC224E2D694B1B /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		6A0EA8E88D71668E440795FA /* BARTistUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BARTistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7321A6945F4664D77B59F1AC /* BARTistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BARTistApp.swift; sourceTree = "<group>"; };
+		734E791D2CE2F9120BEAB571 /* Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshots.swift; sourceTree = "<group>"; };
 		9200FB89E5CCC7A1D5CBDA28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A22312D50CAF10B105DF8C01 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C29102311A51C35BB968021C /* BrandTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandTitle.swift; sourceTree = "<group>"; };
@@ -28,10 +43,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		3171559AAFF4E850087AF43E /* BARTistUITests */ = {
+			isa = PBXGroup;
+			children = (
+				734E791D2CE2F9120BEAB571 /* Screenshots.swift */,
+				680A7D63BAAC224E2D694B1B /* SnapshotHelper.swift */,
+			);
+			path = BARTistUITests;
+			sourceTree = "<group>";
+		};
 		8481DB87AFD63FE0BEFA6EF3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				21A308DC7D9E26433647BB19 /* BARTist.app */,
+				6A0EA8E88D71668E440795FA /* BARTistUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -40,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				E16F987D212F23B248061034 /* BARTist */,
+				3171559AAFF4E850087AF43E /* BARTistUITests */,
 				8481DB87AFD63FE0BEFA6EF3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +105,24 @@
 			productReference = 21A308DC7D9E26433647BB19 /* BARTist.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C8A43BB9B596423591E8305D /* BARTistUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 976CA4F0C0397AAFE9E88EB4 /* Build configuration list for PBXNativeTarget "BARTistUITests" */;
+			buildPhases = (
+				A55DAD876C79A74C43D56478 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AA4F4302637416185931CB8 /* PBXTargetDependency */,
+			);
+			name = BARTistUITests;
+			packageProductDependencies = (
+			);
+			productName = BARTistUITests;
+			productReference = 6A0EA8E88D71668E440795FA /* BARTistUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -90,6 +134,10 @@
 				TargetAttributes = {
 					8F52F427E78515AE5E8B37B0 = {
 						ProvisioningStyle = Automatic;
+					};
+					C8A43BB9B596423591E8305D = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8F52F427E78515AE5E8B37B0;
 					};
 				};
 			};
@@ -108,6 +156,7 @@
 			projectRoot = "";
 			targets = (
 				8F52F427E78515AE5E8B37B0 /* BARTist */,
+				C8A43BB9B596423591E8305D /* BARTistUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -137,9 +186,44 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A55DAD876C79A74C43D56478 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				161CBA77276930A61D0B22AF /* Screenshots.swift in Sources */,
+				C28827BF8623847BE6EA7719 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8AA4F4302637416185931CB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F52F427E78515AE5E8B37B0 /* BARTist */;
+			targetProxy = 16D8C08EA25B049E29D454B3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		2E89217C085A8A4CF3112C64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.bartist.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BARTist;
+			};
+			name = Debug;
+		};
 		3EC2E4C8E7B77303A4C1A7D3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -317,6 +401,24 @@
 			};
 			name = Release;
 		};
+		BF7C3602C2CCEE0CA26EFFD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.bartist.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BARTist;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -334,6 +436,15 @@
 			buildConfigurations = (
 				53AD0D802138412E3B5820DA /* Debug */,
 				3EC2E4C8E7B77303A4C1A7D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		976CA4F0C0397AAFE9E88EB4 /* Build configuration list for PBXNativeTarget "BARTistUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E89217C085A8A4CF3112C64 /* Debug */,
+				BF7C3602C2CCEE0CA26EFFD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

@@ -30,6 +30,7 @@ struct MapView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .background(Color(uiColor: .systemBackground))
+            .accessibilityIdentifier("map-screen")
         }
     }
 

@@ -49,6 +49,7 @@ struct TrainsView: View {
                     }
                     .padding(12)
                 }
+                .accessibilityIdentifier(store.trainsIdentifier)
                 .refreshable {
                     await store.refreshDepartures()
                 }
@@ -64,6 +65,7 @@ struct TrainsView: View {
                     }
                     .controlSize(.large)
                     .nativeChip()
+                    .accessibilityIdentifier("selected-station")
                     .padding(.horizontal, 16)
                 }
             }
@@ -146,7 +148,9 @@ private struct StationPickerView: View {
                         }
                     }
                     .id(station.code)
+                    .accessibilityIdentifier("station-\(station.code)")
                 }
+                .accessibilityIdentifier("station-picker")
                 .navigationTitle("Select a station")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -175,6 +179,13 @@ final class TrainStore {
 
     var selectedName: String {
         stations.first { $0.code == selectedCode }?.name ?? "Select a station"
+    }
+
+    var trainsIdentifier: String {
+        if loading || (destinations.isEmpty && status.isEmpty) {
+            return "trains-loading"
+        }
+        return "trains-ready"
     }
 
     func load() async {
