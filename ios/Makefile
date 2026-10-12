@@ -2,7 +2,12 @@ SCHEME := BARTist
 PROJECT := BARTist.xcodeproj
 BUNDLE := app.bartist
 SIMULATOR ?= iPhone 17
+# xcodebuild defaults to OS=latest (26.5 here). Older sims need OS= set.
+ifeq ($(OS),)
 DESTINATION := platform=iOS Simulator,name=$(SIMULATOR)
+else
+DESTINATION := platform=iOS Simulator,name=$(SIMULATOR),OS=$(OS)
+endif
 DERIVED := .derived
 APP := $(DERIVED)/Build/Products/Debug-iphonesimulator/BARTist.app
 
@@ -18,7 +23,7 @@ help:
 	@echo "make simulators   list available simulators"
 	@echo "make screenshots  capture Fastlane screenshots"
 	@echo ""
-	@echo "SIMULATOR='iPhone 17 Pro iOS 26.5' make run"
+	@echo "SIMULATOR='iPhone 16' OS=18.6 make run"
 
 generate:
 	xcodegen generate --spec project.yml
