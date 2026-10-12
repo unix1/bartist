@@ -1,8 +1,6 @@
-# Device names must match `make simulators`. Prefer uniquely renamed
-# devices when the same name exists on more than one iOS runtime.
-devices([
-  "iPhone 17 Pro Max iOS 26.5"
-])
+# App Store Connect requires iPhone Dynamic Island (medium): 1206×2622.
+devices(["iPhone 17"])
+ios_version("26.5")
 
 languages(["en-US"])
 
