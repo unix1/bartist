@@ -23,7 +23,24 @@ extension View {
         if #available(iOS 26, *) {
             self.buttonStyle(.glass).buttonBorderShape(.capsule)
         } else {
-            self.buttonStyle(.bordered).buttonBorderShape(.capsule)
+            self.buttonStyle(ChipButtonStyle())
         }
+    }
+}
+
+private struct ChipButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(Color(red: 26 / 255, green: 26 / 255, blue: 26 / 255))
+            .padding(.horizontal, 14)
+            .padding(.vertical, 8)
+            .background(Color.white, in: Capsule())
+            .overlay(
+                Capsule().strokeBorder(
+                    Color(red: 229 / 255, green: 231 / 255, blue: 235 / 255),
+                    lineWidth: 1
+                )
+            )
+            .opacity(configuration.isPressed ? 0.65 : 1)
     }
 }
