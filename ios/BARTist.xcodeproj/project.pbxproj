@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		161CBA77276930A61D0B22AF /* Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734E791D2CE2F9120BEAB571 /* Screenshots.swift */; };
 		56ABA71883149C04EF4952AD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22312D50CAF10B105DF8C01 /* MapView.swift */; };
+		6897E08B7290214D2C62C7EC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 01CDEB598B1C653424634CD1 /* PrivacyInfo.xcprivacy */; };
 		A753AAB7FD14503755724553 /* BrandTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29102311A51C35BB968021C /* BrandTitle.swift */; };
 		B6730457762443221FBC65C0 /* TrainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F019489443077A3352C9D /* TrainsView.swift */; };
 		C28827BF8623847BE6EA7719 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A7D63BAAC224E2D694B1B /* SnapshotHelper.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01CDEB598B1C653424634CD1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		21A308DC7D9E26433647BB19 /* BARTist.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BARTist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2848FB9EE2AE04E5FF884D49 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		4E29C70B1782E67282542E2C /* BartAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BartAPI.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				7321A6945F4664D77B59F1AC /* BARTistApp.swift */,
 				C29102311A51C35BB968021C /* BrandTitle.swift */,
 				A22312D50CAF10B105DF8C01 /* MapView.swift */,
+				01CDEB598B1C653424634CD1 /* PrivacyInfo.xcprivacy */,
 				2848FB9EE2AE04E5FF884D49 /* RootView.swift */,
 				F19F019489443077A3352C9D /* TrainsView.swift */,
 			);
@@ -167,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDCA5C37A8E44A485AB7D4EA /* Assets.xcassets in Resources */,
+				6897E08B7290214D2C62C7EC /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +367,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -389,6 +394,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
