@@ -1,0 +1,35 @@
+name: Test
+
+on:
+  push:
+    paths:
+      - "ios/**"
+      - ".github/workflows/test.yml"
+  pull_request:
+    paths:
+      - "ios/**"
+      - ".github/workflows/test.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: ios
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install XcodeGen
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: "1"
+        run: brew install xcodegen
+      - name: Test
+        run: make test OS=latest

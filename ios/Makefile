@@ -51,6 +51,7 @@ test: generate
 		-destination '$(DESTINATION)' \
 		-derivedDataPath $(DERIVED) \
 		-only-testing:BARTistTests \
+		CODE_SIGNING_ALLOWED=NO \
 		test
 
 screenshots: generate

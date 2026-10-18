@@ -21,6 +21,7 @@ SwiftUI iOS app for BART train departures and a zoomable system map. Keep it ext
 - `BARTistTests/` — unit tests (`make test`)
 - `BARTistUITests/` — Fastlane snapshot UI tests (`make screenshots`); add more UI tests here later
 - `fastlane/` — Snapfile and screenshots lane
+- `../.github/workflows/test.yml` — GitHub Actions: `make test` on `macos-latest`
 
 ## Features
 
@@ -48,7 +49,7 @@ make simulators
 make screenshots   # Fastlane snapshot: Embarcadero trains, station picker, map
 ```
 
-`SIMULATOR` defaults to `iPhone 17`. `make run` writes build products to `.derived/` (gitignored). Verify on the Simulator with `make run`, or `make open` and Run in Xcode. `make test` is unit tests only; Fastlane snapshots stay on `make screenshots`. Functional UI tests can join `BARTistUITests` later without changing `make test`.
+`SIMULATOR` defaults to `iPhone 17`. `make run` writes build products to `.derived/` (gitignored). Verify on the Simulator with `make run`, or `make open` and Run in Xcode. `make test` is unit tests only; Fastlane snapshots stay on `make screenshots`. Functional UI tests can join `BARTistUITests` later without changing `make test`. Push and PR CI runs `make test` on GitHub-hosted `macos-latest` (free for this public repo).
 
 ## Conventions
 
