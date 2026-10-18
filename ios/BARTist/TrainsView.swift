@@ -15,11 +15,7 @@ struct TrainsView: View {
                     BrandTitle(title: "Trains")
                     Spacer(minLength: 8)
                     Button {
-                        Task {
-                            store.loading = true
-                            defer { store.loading = false }
-                            await store.refreshDepartures()
-                        }
+                        Task { await store.refreshDepartures() }
                     } label: {
                         if store.loading {
                             ProgressView()
@@ -218,6 +214,8 @@ final class TrainStore {
     }
 
     func refreshDepartures() async {
+        loading = true
+        defer { loading = false }
         do {
             let next = try await BartAPI.loadDepartures(code: selectedCode)
             destinations = next
