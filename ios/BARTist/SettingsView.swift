@@ -11,32 +11,21 @@ struct SettingsView: View {
                     .padding(.top, 4)
                     .padding(.bottom, 8)
 
-                NavigationLink {
-                    AppearancePickerView(appearance: $appearance)
-                } label: {
-                    HStack {
-                        Text("Appearance")
-                            .foregroundStyle(Palette.text)
-                        Spacer()
-                        Text(appearance.title)
-                            .foregroundStyle(Palette.muted)
-                        Image(systemName: "chevron.right")
-                            .font(.footnote.weight(.semibold))
-                            .foregroundStyle(Palette.muted)
+                List {
+                    NavigationLink {
+                        AppearancePickerView(appearance: $appearance)
+                    } label: {
+                        HStack {
+                            Text("Appearance")
+                            Spacer()
+                            Text(appearance.title)
+                                .foregroundStyle(.secondary)
+                        }
                     }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 12)
-                    .background(Palette.card, in: RoundedRectangle(cornerRadius: 10))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(Palette.line, lineWidth: 1)
-                    )
+                    .accessibilityIdentifier("appearance-row")
                 }
-                .buttonStyle(.plain)
-                .padding(12)
-                .accessibilityIdentifier("appearance-row")
-
-                Spacer(minLength: 0)
+                .listStyle(.insetGrouped)
+                .scrollContentBackground(.hidden)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Palette.background.ignoresSafeArea())
