@@ -148,10 +148,9 @@ private struct StationPickerView: View {
             ScrollViewReader { proxy in
                 List(store.stations) { station in
                     Button {
-                        Task {
-                            await store.selectStation(station.code)
-                            dismiss()
-                        }
+                        store.selectStation(station.code)
+                        dismiss()
+                        Task { await store.refreshDepartures() }
                     } label: {
                         HStack {
                             Text(station.name)
@@ -228,9 +227,8 @@ final class TrainStore {
         }
     }
 
-    func selectStation(_ code: String) async {
+    func selectStation(_ code: String) {
         selectedCode = code
         BartAPI.saveSelectedStation(code)
-        await refreshDepartures()
     }
 }
