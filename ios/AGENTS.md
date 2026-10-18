@@ -27,7 +27,7 @@ Three tabs:
 
 1. **Trains** — pinned `[icon] Trains` title, pinned station chip (truncates long names, picker scrolls to the current station), destination codes with car length and minutes (`Leaving` → “leaving now”). Only the departure list scrolls; pull-to-refresh is on that list.
 2. **Map** — `[icon] Map` title aligned with Trains. Daytime or evening bundled image fitted to the pane, defaulting to evening from 9pm–3am Pacific. Pinch or double-tap to zoom, pan when zoomed, keep the image on screen. Day/night cross-fades. Credit (© BART · CC BY 3.0) stays on the image’s bottom-right.
-3. **Settings** — pinned `[icon] Settings` title. Appearance (System / Light / Dark) is stored in `bartist.appearance` and applied with `preferredColorScheme`. Colors live in `Palette`.
+3. **Settings** — pinned `[icon] Settings` title. Appearance (System / Light / Dark) is stored in `bartist.appearance` and applied with `preferredColorScheme`. Auto refresh (`bartist.autoRefresh`, default on) reloads the trains list every 30 seconds only while that tab is selected and the app is in the foreground. Colors live in `Palette`.
 
 BART’s JSON sometimes returns one object instead of an array. Always normalize with `FlexibleArray`. `etd` can also repeat the same destination abbreviation; group those rows, sort trains by arrival, and keep the next three.
 

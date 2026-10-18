@@ -1,7 +1,11 @@
 import SwiftUI
 
+private let autoRefreshInterval: Duration = .seconds(30)
+
 struct TrainsView: View {
+    var isSelected = true
     @Environment(\.scenePhase) private var scenePhase
+    @AppStorage("bartist.autoRefresh") private var autoRefresh = true
     @State private var store = TrainStore()
 
     var body: some View {
@@ -81,12 +85,28 @@ struct TrainsView: View {
             .sheet(isPresented: $store.pickerOpen) {
                 StationPickerView(store: store)
             }
-            .task {
-                await store.load()
+            .task(id: isSelected) {
+                guard isSelected else { return }
+                if store.stations.isEmpty {
+                    await store.load()
+                } else {
+                    await store.refreshDepartures()
+                }
             }
             .onChange(of: scenePhase) { _, phase in
                 guard phase == .active, !store.stations.isEmpty else { return }
                 Task { await store.refreshDepartures() }
+            }
+            .task(id: isSelected && scenePhase == .active && autoRefresh) {
+                guard isSelected, scenePhase == .active, autoRefresh else { return }
+                while !Task.isCancelled {
+                    do {
+                        try await Task.sleep(for: autoRefreshInterval)
+                    } catch {
+                        return
+                    }
+                    await store.refreshDepartures()
+                }
             }
         }
     }
