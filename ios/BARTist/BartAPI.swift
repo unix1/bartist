@@ -52,13 +52,19 @@ enum BartAPI {
         let data = try await bartGet("etd.aspx", ["cmd": "etd", "orig": code])
         let decoded = try JSONDecoder().decode(DeparturesResponse.self, from: data)
         let station = decoded.root.station.first
-        return (station?.etd ?? []).map { etd in
-            Destination(
-                name: etd.destination,
-                code: etd.abbreviation,
-                trains: etd.estimate.map { Train(minutes: $0.minutes, length: $0.length) }
+        var order: [String] = []
+        var grouped: [String: Destination] = [:]
+        for etd in station?.etd ?? [] {
+            let code = etd.abbreviation
+            if grouped[code] == nil {
+                order.append(code)
+                grouped[code] = Destination(name: etd.destination, code: code, trains: [])
+            }
+            grouped[code]!.trains.append(
+                contentsOf: etd.estimate.map { Train(minutes: $0.minutes, length: $0.length) }
             )
         }
+        return order.compactMap { grouped[$0] }
     }
 
     private static func bartGet(_ path: String, _ params: [String: String]) async throws -> Data {
