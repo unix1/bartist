@@ -29,7 +29,7 @@ Three tabs:
 2. **Map** — `[icon] Map` title aligned with Trains. Daytime or evening bundled image fitted to the pane, defaulting to evening from 9pm–3am Pacific. Pinch or double-tap to zoom, pan when zoomed, keep the image on screen. Day/night cross-fades. Credit (© BART · CC BY 3.0) stays on the image’s bottom-right.
 3. **Settings** — pinned `[icon] Settings` title. Appearance (System / Light / Dark) is stored in `bartist.appearance` and applied with `preferredColorScheme`. Colors live in `Palette`.
 
-BART’s JSON sometimes returns one object instead of an array. Always normalize with `FlexibleArray`.
+BART’s JSON sometimes returns one object instead of an array. Always normalize with `FlexibleArray`. `etd` can also repeat the same destination abbreviation; group those rows, sort trains by arrival, and keep the next three.
 
 Do not set `UIDesignRequiresCompatibility`. System `TabView` / bars pick up Liquid Glass on iOS 26 automatically.
 

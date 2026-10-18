@@ -52,6 +52,8 @@ enum BartAPI {
         let data = try await bartGet("etd.aspx", ["cmd": "etd", "orig": code])
         let decoded = try JSONDecoder().decode(DeparturesResponse.self, from: data)
         let station = decoded.root.station.first
+        // BART sometimes repeats the same destination abbreviation in `etd`.
+        // Group those rows so ForEach ids stay unique.
         var order: [String] = []
         var grouped: [String: Destination] = [:]
         for etd in station?.etd ?? [] {
@@ -64,7 +66,25 @@ enum BartAPI {
                 contentsOf: etd.estimate.map { Train(minutes: $0.minutes, length: $0.length) }
             )
         }
-        return order.compactMap { grouped[$0] }
+        return order.compactMap { code in
+            guard var destination = grouped[code] else { return nil }
+            destination.trains = soonestTrains(destination.trains)
+            return destination
+        }
+    }
+
+    // Merged duplicates arrive out of order (and can exceed BART’s usual 3 estimates).
+    private static func soonestTrains(_ trains: [Train]) -> [Train] {
+        var seen: Set<Train> = []
+        return trains
+            .sorted { arrivalMinutes($0.minutes) < arrivalMinutes($1.minutes) }
+            .filter { seen.insert($0).inserted }
+            .prefix(3)
+            .map { $0 }
+    }
+
+    private static func arrivalMinutes(_ minutes: String) -> Int {
+        minutes == "Leaving" ? 0 : Int(minutes) ?? Int.max
     }
 
     private static func bartGet(_ path: String, _ params: [String: String]) async throws -> Data {
