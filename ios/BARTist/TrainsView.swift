@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TrainsView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @State private var store = TrainStore()
 
     var body: some View {
@@ -77,6 +78,10 @@ struct TrainsView: View {
             }
             .task {
                 await store.load()
+            }
+            .onChange(of: scenePhase) { _, phase in
+                guard phase == .active, !store.stations.isEmpty else { return }
+                Task { await store.refreshDepartures() }
             }
         }
     }
