@@ -113,6 +113,16 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func traitCollectionDidChange(_ previous: UITraitCollection?) {
+        super.traitCollectionDidChange(previous)
+        guard traitCollection.hasDifferentColorAppearance(comparedTo: previous) else {
+            return
+        }
+        let name = imageName
+        imageName = ""
+        setImageName(name)
+    }
+
     func setImageName(_ name: String) {
         guard name != imageName else {
             return

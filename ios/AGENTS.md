@@ -15,7 +15,7 @@ SwiftUI iOS app for BART train departures and a zoomable system map. Keep it ext
 - `BARTist/BARTistApp.swift`, `RootView.swift` — `TabView` (Trains / Map / Settings)
 - `BARTist/BartAPI.swift` — BART fetch helpers
 - `BARTist/TrainsView.swift`, `MapView.swift`, `SettingsView.swift`, `BrandTitle.swift`, `Palette.swift`
-- `BARTist/Assets.xcassets` — app icon, brand icon, daytime/evening maps (CC BY 3.0)
+- `BARTist/Assets.xcassets` — app icon, brand icon, daytime/evening maps in light and dark (CC BY 3.0)
 - `project.yml` — XcodeGen spec
 - `Makefile` — generate, build, run, open, test, screenshots
 - `BARTistTests/` — unit tests (`make test`)
@@ -28,7 +28,7 @@ SwiftUI iOS app for BART train departures and a zoomable system map. Keep it ext
 Three tabs:
 
 1. **Trains** — pinned `[icon] Trains` title, pinned station chip (truncates long names, picker scrolls to the current station), destination codes with car length and minutes (`Leaving` → “leaving now”). Only the departure list scrolls; pull-to-refresh is on that list.
-2. **Map** — `[icon] Map` title aligned with Trains. Daytime or evening bundled image fitted to the pane, defaulting to evening from 9pm–3am Pacific. Pinch or double-tap to zoom, pan when zoomed, keep the image on screen. Day/night cross-fades. Credit (© BART · CC BY 3.0) stays on the image’s bottom-right.
+2. **Map** — `[icon] Map` title aligned with Trains. Daytime or evening bundled SVG fitted to the pane, defaulting to evening from 9pm–3am Pacific. Dark appearance uses the dark SVG. Pinch or double-tap to zoom, pan when zoomed, keep the map on screen. Day/night cross-fades. Credit (© BART · CC BY 3.0) stays on the map’s bottom-right.
 3. **Settings** — pinned `[icon] Settings` title. Appearance (System / Light / Dark) is stored in `bartist.appearance` and applied with `preferredColorScheme`. Auto refresh (`bartist.autoRefresh`, default on) reloads the trains list every 30 seconds only while that tab is selected and the app is in the foreground. Colors live in `Palette`.
 
 BART’s JSON sometimes returns one object instead of an array. Always normalize with `FlexibleArray`. `etd` can also repeat the same destination abbreviation; group those rows, sort trains by arrival, and keep the next three.
