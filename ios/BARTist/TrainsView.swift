@@ -11,7 +11,11 @@ struct TrainsView: View {
                     BrandTitle(title: "Trains")
                     Spacer(minLength: 8)
                     Button {
-                        Task { await store.refreshDepartures() }
+                        Task {
+                            store.loading = true
+                            defer { store.loading = false }
+                            await store.refreshDepartures()
+                        }
                     } label: {
                         if store.loading {
                             ProgressView()
@@ -50,9 +54,10 @@ struct TrainsView: View {
                     }
                     .padding(12)
                 }
+                .scrollBounceBehavior(.always)
                 .accessibilityIdentifier(store.trainsIdentifier)
                 .refreshable {
-                    await store.refreshDepartures()
+                    await Task { await store.refreshDepartures() }.value
                 }
                 .safeAreaInset(edge: .top, spacing: 8) {
                     Button {
@@ -118,16 +123,6 @@ private struct DestinationRow: View {
     }
 }
 
-private enum Palette {
-    static let background = Color(red: 243 / 255, green: 244 / 255, blue: 246 / 255)
-    static let card = Color.white
-    static let row = Color(red: 247 / 255, green: 249 / 255, blue: 252 / 255)
-    static let line = Color(red: 229 / 255, green: 231 / 255, blue: 235 / 255)
-    static let text = Color(red: 26 / 255, green: 26 / 255, blue: 26 / 255)
-    static let muted = Color(red: 92 / 255, green: 92 / 255, blue: 92 / 255)
-    static let blueDark = Color(red: 43 / 255, green: 95 / 255, blue: 154 / 255)
-}
-
 private struct StationPickerView: View {
     @Bindable var store: TrainStore
     @Environment(\.dismiss) private var dismiss
@@ -187,10 +182,7 @@ final class TrainStore {
     }
 
     var trainsIdentifier: String {
-        if loading || (destinations.isEmpty && status.isEmpty) {
-            return "trains-loading"
-        }
-        return "trains-ready"
+        destinations.isEmpty && status.isEmpty ? "trains-loading" : "trains-ready"
     }
 
     func load() async {
@@ -206,12 +198,12 @@ final class TrainStore {
     }
 
     func refreshDepartures() async {
-        loading = true
-        status = ""
-        defer { loading = false }
         do {
-            destinations = try await BartAPI.loadDepartures(code: selectedCode)
-            status = destinations.isEmpty ? "No trains at this time." : ""
+            let next = try await BartAPI.loadDepartures(code: selectedCode)
+            destinations = next
+            status = next.isEmpty ? "No trains at this time." : ""
+        } catch is CancellationError {
+            return
         } catch {
             destinations = []
             status = "Could not load departures."

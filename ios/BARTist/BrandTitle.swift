@@ -11,6 +11,7 @@ struct BrandTitle: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             Text(title)
                 .font(.largeTitle.bold())
+                .foregroundStyle(Palette.text)
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(title)
@@ -31,15 +32,12 @@ extension View {
 private struct ChipButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundStyle(Color(red: 26 / 255, green: 26 / 255, blue: 26 / 255))
+            .foregroundStyle(Palette.text)
             .padding(.horizontal, 14)
             .padding(.vertical, 8)
-            .background(Color.white, in: Capsule())
+            .background(Palette.card, in: Capsule())
             .overlay(
-                Capsule().strokeBorder(
-                    Color(red: 229 / 255, green: 231 / 255, blue: 235 / 255),
-                    lineWidth: 1
-                )
+                Capsule().strokeBorder(Palette.line, lineWidth: 1)
             )
             .opacity(configuration.isPressed ? 0.65 : 1)
     }

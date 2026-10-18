@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		161CBA77276930A61D0B22AF /* Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734E791D2CE2F9120BEAB571 /* Screenshots.swift */; };
+		30A73710F649DC08969D3FC4 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC790FB0BC0698DD13298F17 /* Palette.swift */; };
+		39F8E73EBF67FA104E500228 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E368CEA5EF60A8FF067846 /* SettingsView.swift */; };
 		56ABA71883149C04EF4952AD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22312D50CAF10B105DF8C01 /* MapView.swift */; };
 		6897E08B7290214D2C62C7EC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 01CDEB598B1C653424634CD1 /* PrivacyInfo.xcprivacy */; };
 		A753AAB7FD14503755724553 /* BrandTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29102311A51C35BB968021C /* BrandTitle.swift */; };
@@ -38,9 +40,11 @@
 		6A0EA8E88D71668E440795FA /* BARTistUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BARTistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7321A6945F4664D77B59F1AC /* BARTistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BARTistApp.swift; sourceTree = "<group>"; };
 		734E791D2CE2F9120BEAB571 /* Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshots.swift; sourceTree = "<group>"; };
+		85E368CEA5EF60A8FF067846 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9200FB89E5CCC7A1D5CBDA28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A22312D50CAF10B105DF8C01 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C29102311A51C35BB968021C /* BrandTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandTitle.swift; sourceTree = "<group>"; };
+		EC790FB0BC0698DD13298F17 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		F19F019489443077A3352C9D /* TrainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,8 +84,10 @@
 				7321A6945F4664D77B59F1AC /* BARTistApp.swift */,
 				C29102311A51C35BB968021C /* BrandTitle.swift */,
 				A22312D50CAF10B105DF8C01 /* MapView.swift */,
+				EC790FB0BC0698DD13298F17 /* Palette.swift */,
 				01CDEB598B1C653424634CD1 /* PrivacyInfo.xcprivacy */,
 				2848FB9EE2AE04E5FF884D49 /* RootView.swift */,
+				85E368CEA5EF60A8FF067846 /* SettingsView.swift */,
 				F19F019489443077A3352C9D /* TrainsView.swift */,
 			);
 			path = BARTist;
@@ -185,7 +191,9 @@
 				FA7A8C08B4567E5DC30F5446 /* BartAPI.swift in Sources */,
 				A753AAB7FD14503755724553 /* BrandTitle.swift in Sources */,
 				56ABA71883149C04EF4952AD /* MapView.swift in Sources */,
+				30A73710F649DC08969D3FC4 /* Palette.swift in Sources */,
 				DBE44DBF4C33FD20B1FBB81B /* RootView.swift in Sources */,
+				39F8E73EBF67FA104E500228 /* SettingsView.swift in Sources */,
 				B6730457762443221FBC65C0 /* TrainsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -365,9 +373,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -392,9 +398,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

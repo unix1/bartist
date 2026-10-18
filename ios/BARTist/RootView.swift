@@ -11,6 +11,10 @@ struct RootView: View {
                 .tabItem {
                     Label("Map", systemImage: "map")
                 }
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape")
+                }
         }
     }
 }

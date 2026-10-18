@@ -29,7 +29,7 @@ struct MapView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .background(Color(uiColor: .systemBackground))
+            .background(Palette.background.ignoresSafeArea())
             .accessibilityIdentifier("map-screen")
         }
     }
@@ -97,7 +97,7 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
         showsVerticalScrollIndicator = false
         bouncesZoom = true
         contentInsetAdjustmentBehavior = .never
-        backgroundColor = .systemBackground
+        backgroundColor = Palette.backgroundUIColor
         imageView.isUserInteractionEnabled = true
         addSubview(imageView)
         addSubview(creditView)
