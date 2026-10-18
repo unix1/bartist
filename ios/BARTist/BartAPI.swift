@@ -34,10 +34,7 @@ enum BartAPI {
 
         do {
             let data = try await bartGet("stn.aspx", ["cmd": "stns"])
-            let decoded = try JSONDecoder().decode(StationsResponse.self, from: data)
-            let stations = decoded.root.stations.station.map {
-                Station(name: $0.name, code: $0.abbr)
-            }
+            let stations = try parseStations(from: data)
             writeStationsCache(stations)
             return stations
         } catch {
@@ -50,6 +47,17 @@ enum BartAPI {
 
     static func loadDepartures(code: String) async throws -> [Destination] {
         let data = try await bartGet("etd.aspx", ["cmd": "etd", "orig": code])
+        return try parseDepartures(from: data)
+    }
+
+    static func parseStations(from data: Data) throws -> [Station] {
+        let decoded = try JSONDecoder().decode(StationsResponse.self, from: data)
+        return decoded.root.stations.station.map {
+            Station(name: $0.name, code: $0.abbr)
+        }
+    }
+
+    static func parseDepartures(from data: Data) throws -> [Destination] {
         let decoded = try JSONDecoder().decode(DeparturesResponse.self, from: data)
         let station = decoded.root.station.first
         // BART sometimes repeats the same destination abbreviation in `etd`.

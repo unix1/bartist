@@ -17,9 +17,11 @@ SwiftUI iOS app for BART train departures and a zoomable system map. Keep it ext
 - `BARTist/TrainsView.swift`, `MapView.swift`, `SettingsView.swift`, `BrandTitle.swift`, `Palette.swift`
 - `BARTist/Assets.xcassets` — app icon, brand icon, daytime/evening maps (CC BY 3.0)
 - `project.yml` — XcodeGen spec
-- `Makefile` — generate, build, run, open, screenshots
-- `BARTistUITests/` — Fastlane snapshot UI tests
+- `Makefile` — generate, build, run, open, test, screenshots
+- `BARTistTests/` — unit tests (`make test`)
+- `BARTistUITests/` — Fastlane snapshot UI tests (`make screenshots`); add more UI tests here later
 - `fastlane/` — Snapfile and screenshots lane
+- `../.github/workflows/test.yml` — GitHub Actions: `make test` on `macos-latest`
 
 ## Features
 
@@ -42,11 +44,12 @@ make generate
 make open
 make build
 make run
+make test          # unit tests only (`BARTistTests`)
 make simulators
 make screenshots   # Fastlane snapshot: Embarcadero trains, station picker, map
 ```
 
-`SIMULATOR` defaults to `iPhone 17`. `make run` writes build products to `.derived/` (gitignored). Verify on the Simulator with `make run`, or `make open` and Run in Xcode.
+`SIMULATOR` defaults to `iPhone 17`. `make run` writes build products to `.derived/` (gitignored). Verify on the Simulator with `make run`, or `make open` and Run in Xcode. `make test` is unit tests only; Fastlane snapshots stay on `make screenshots`. Functional UI tests can join `BARTistUITests` later without changing `make test`. Push CI runs `make test` on GitHub-hosted `macos-latest` (free for this public repo).
 
 ## Conventions
 

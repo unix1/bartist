@@ -10,6 +10,7 @@
 		161CBA77276930A61D0B22AF /* Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734E791D2CE2F9120BEAB571 /* Screenshots.swift */; };
 		30A73710F649DC08969D3FC4 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC790FB0BC0698DD13298F17 /* Palette.swift */; };
 		39F8E73EBF67FA104E500228 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E368CEA5EF60A8FF067846 /* SettingsView.swift */; };
+		3AD0EDB644376362C17F8048 /* BartAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E873CDAB2E1CECA8771FCAD /* BartAPITests.swift */; };
 		56ABA71883149C04EF4952AD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22312D50CAF10B105DF8C01 /* MapView.swift */; };
 		6897E08B7290214D2C62C7EC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 01CDEB598B1C653424634CD1 /* PrivacyInfo.xcprivacy */; };
 		A753AAB7FD14503755724553 /* BrandTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29102311A51C35BB968021C /* BrandTitle.swift */; };
@@ -22,6 +23,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0F93CBD982377167C6B1E602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 165E7AE153D78A33DAB43D87 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F52F427E78515AE5E8B37B0;
+			remoteInfo = BARTist;
+		};
 		16D8C08EA25B049E29D454B3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 165E7AE153D78A33DAB43D87 /* Project object */;
@@ -35,12 +43,14 @@
 		01CDEB598B1C653424634CD1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		21A308DC7D9E26433647BB19 /* BARTist.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BARTist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2848FB9EE2AE04E5FF884D49 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		2E873CDAB2E1CECA8771FCAD /* BartAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BartAPITests.swift; sourceTree = "<group>"; };
 		4E29C70B1782E67282542E2C /* BartAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BartAPI.swift; sourceTree = "<group>"; };
 		680A7D63BAAC224E2D694B1B /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		6A0EA8E88D71668E440795FA /* BARTistUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BARTistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7321A6945F4664D77B59F1AC /* BARTistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BARTistApp.swift; sourceTree = "<group>"; };
 		734E791D2CE2F9120BEAB571 /* Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshots.swift; sourceTree = "<group>"; };
 		85E368CEA5EF60A8FF067846 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8E428FD251DFC26A276349A2 /* BARTistTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BARTistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9200FB89E5CCC7A1D5CBDA28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A22312D50CAF10B105DF8C01 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C29102311A51C35BB968021C /* BrandTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandTitle.swift; sourceTree = "<group>"; };
@@ -49,6 +59,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		00D9179D9172E42CD513B3B7 /* BARTistTests */ = {
+			isa = PBXGroup;
+			children = (
+				2E873CDAB2E1CECA8771FCAD /* BartAPITests.swift */,
+			);
+			path = BARTistTests;
+			sourceTree = "<group>";
+		};
 		3171559AAFF4E850087AF43E /* BARTistUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				21A308DC7D9E26433647BB19 /* BARTist.app */,
+				8E428FD251DFC26A276349A2 /* BARTistTests.xctest */,
 				6A0EA8E88D71668E440795FA /* BARTistUITests.xctest */,
 			);
 			name = Products;
@@ -71,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				E16F987D212F23B248061034 /* BARTist */,
+				00D9179D9172E42CD513B3B7 /* BARTistTests */,
 				3171559AAFF4E850087AF43E /* BARTistUITests */,
 				8481DB87AFD63FE0BEFA6EF3 /* Products */,
 			);
@@ -132,6 +152,24 @@
 			productReference = 6A0EA8E88D71668E440795FA /* BARTistUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		D1EC3E2A7C7E6E980C75DEF6 /* BARTistTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 469ECA79E1C864FC4EBCD2F3 /* Build configuration list for PBXNativeTarget "BARTistTests" */;
+			buildPhases = (
+				EF84AD1714A94332DC5275F4 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0CFFB1490A53FA93FEE0495 /* PBXTargetDependency */,
+			);
+			name = BARTistTests;
+			packageProductDependencies = (
+			);
+			productName = BARTistTests;
+			productReference = 8E428FD251DFC26A276349A2 /* BARTistTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -147,6 +185,9 @@
 					C8A43BB9B596423591E8305D = {
 						ProvisioningStyle = Automatic;
 						TestTargetID = 8F52F427E78515AE5E8B37B0;
+					};
+					D1EC3E2A7C7E6E980C75DEF6 = {
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -165,6 +206,7 @@
 			projectRoot = "";
 			targets = (
 				8F52F427E78515AE5E8B37B0 /* BARTist */,
+				D1EC3E2A7C7E6E980C75DEF6 /* BARTistTests */,
 				C8A43BB9B596423591E8305D /* BARTistUITests */,
 			);
 		};
@@ -207,6 +249,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EF84AD1714A94332DC5275F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AD0EDB644376362C17F8048 /* BartAPITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -215,9 +265,32 @@
 			target = 8F52F427E78515AE5E8B37B0 /* BARTist */;
 			targetProxy = 16D8C08EA25B049E29D454B3 /* PBXContainerItemProxy */;
 		};
+		D0CFFB1490A53FA93FEE0495 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F52F427E78515AE5E8B37B0 /* BARTist */;
+			targetProxy = 0F93CBD982377167C6B1E602 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0484CF42EEF6DB482064B6B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.bartist.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BARTist.app/BARTist";
+			};
+			name = Release;
+		};
 		2E89217C085A8A4CF3112C64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -231,8 +304,26 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.bartist.uitests;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = BARTist;
+			};
+			name = Debug;
+		};
+		310B34FCA125B28C9E718C98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.bartist.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BARTist.app/BARTist";
 			};
 			name = Debug;
 		};
@@ -424,7 +515,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.bartist.uitests;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = BARTist;
 			};
 			name = Release;
@@ -437,6 +528,15 @@
 			buildConfigurations = (
 				6392B5E9A9BD5B2AFF63B731 /* Debug */,
 				8B11A95521315C3DF442A262 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		469ECA79E1C864FC4EBCD2F3 /* Build configuration list for PBXNativeTarget "BARTistTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				310B34FCA125B28C9E718C98 /* Debug */,
+				0484CF42EEF6DB482064B6B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
