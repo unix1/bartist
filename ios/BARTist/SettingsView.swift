@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("bartist.appearance") private var appearance = Appearance.system
+    @AppStorage("bartist.autoRefresh") private var autoRefresh = true
 
     var body: some View {
         NavigationStack {
@@ -23,6 +24,9 @@ struct SettingsView: View {
                         }
                     }
                     .accessibilityIdentifier("appearance-row")
+
+                    Toggle("Auto refresh", isOn: $autoRefresh)
+                        .accessibilityIdentifier("auto-refresh-row")
                 }
                 .listStyle(.insetGrouped)
                 .scrollContentBackground(.hidden)

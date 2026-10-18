@@ -1,7 +1,11 @@
 import SwiftUI
 
+private let autoRefreshInterval: Duration = .seconds(30)
+
 struct TrainsView: View {
+    var isSelected = true
     @Environment(\.scenePhase) private var scenePhase
+    @AppStorage("bartist.autoRefresh") private var autoRefresh = true
     @State private var store = TrainStore()
 
     var body: some View {
@@ -11,11 +15,7 @@ struct TrainsView: View {
                     BrandTitle(title: "Trains")
                     Spacer(minLength: 8)
                     Button {
-                        Task {
-                            store.loading = true
-                            defer { store.loading = false }
-                            await store.refreshDepartures()
-                        }
+                        Task { await store.refreshDepartures() }
                     } label: {
                         if store.loading {
                             ProgressView()
@@ -81,12 +81,28 @@ struct TrainsView: View {
             .sheet(isPresented: $store.pickerOpen) {
                 StationPickerView(store: store)
             }
-            .task {
-                await store.load()
+            .task(id: isSelected) {
+                guard isSelected else { return }
+                if store.stations.isEmpty {
+                    await store.load()
+                } else {
+                    await store.refreshDepartures()
+                }
             }
             .onChange(of: scenePhase) { _, phase in
                 guard phase == .active, !store.stations.isEmpty else { return }
                 Task { await store.refreshDepartures() }
+            }
+            .task(id: isSelected && scenePhase == .active && autoRefresh) {
+                guard isSelected, scenePhase == .active, autoRefresh else { return }
+                while !Task.isCancelled {
+                    do {
+                        try await Task.sleep(for: autoRefreshInterval)
+                    } catch {
+                        return
+                    }
+                    await store.refreshDepartures()
+                }
             }
         }
     }
@@ -132,10 +148,9 @@ private struct StationPickerView: View {
             ScrollViewReader { proxy in
                 List(store.stations) { station in
                     Button {
-                        Task {
-                            await store.selectStation(station.code)
-                            dismiss()
-                        }
+                        store.selectStation(station.code)
+                        dismiss()
+                        Task { await store.refreshDepartures() }
                     } label: {
                         HStack {
                             Text(station.name)
@@ -198,6 +213,8 @@ final class TrainStore {
     }
 
     func refreshDepartures() async {
+        loading = true
+        defer { loading = false }
         do {
             let next = try await BartAPI.loadDepartures(code: selectedCode)
             destinations = next
@@ -210,9 +227,8 @@ final class TrainStore {
         }
     }
 
-    func selectStation(_ code: String) async {
+    func selectStation(_ code: String) {
         selectedCode = code
         BartAPI.saveSelectedStation(code)
-        await refreshDepartures()
     }
 }
