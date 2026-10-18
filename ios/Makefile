@@ -13,13 +13,14 @@ APP := $(DERIVED)/Build/Products/Debug-iphonesimulator/BARTist.app
 
 .DEFAULT_GOAL := help
 
-.PHONY: help generate open build run simulators screenshots
+.PHONY: help generate open build run test simulators screenshots
 
 help:
 	@echo "make generate     regenerate $(PROJECT) from project.yml"
 	@echo "make open         open the project in Xcode"
 	@echo "make build        build for the iOS Simulator ($(SIMULATOR))"
 	@echo "make run          build, boot that simulator, install, and launch"
+	@echo "make test         run unit tests (BARTistTests)"
 	@echo "make simulators   list available simulators"
 	@echo "make screenshots  capture Fastlane screenshots"
 	@echo ""
@@ -44,6 +45,13 @@ run: build
 	xcrun simctl bootstatus "$(SIMULATOR)" -b
 	xcrun simctl install booted "$(APP)"
 	xcrun simctl launch booted $(BUNDLE)
+
+test: generate
+	xcodebuild -project $(PROJECT) -scheme $(SCHEME) \
+		-destination '$(DESTINATION)' \
+		-derivedDataPath $(DERIVED) \
+		-only-testing:BARTistTests \
+		test
 
 screenshots: generate
 	fastlane screenshots

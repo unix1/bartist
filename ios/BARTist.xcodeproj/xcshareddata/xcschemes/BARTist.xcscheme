@@ -44,9 +44,9 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C8A43BB9B596423591E8305D"
-               BuildableName = "BARTistUITests.xctest"
-               BlueprintName = "BARTistUITests"
+               BlueprintIdentifier = "D1EC3E2A7C7E6E980C75DEF6"
+               BuildableName = "BARTistTests.xctest"
+               BlueprintName = "BARTistTests"
                ReferencedContainer = "container:BARTist.xcodeproj">
             </BuildableReference>
          </TestableReference>
