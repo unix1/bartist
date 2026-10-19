@@ -2,7 +2,7 @@
 
 SwiftUI iOS app for live [BART](https://www.bart.gov) departures and a zoomable system map. Bundle id is `app.bartist`.
 
-It uses the official [BART API](https://www.bart.gov/schedules/developers/api). The bundled maps are BART’s [App Map](https://www.bart.gov/schedules/developers/maps) as light and dark SVGs, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+It uses the official [BART API](https://www.bart.gov/schedules/developers/api). The bundled map SVGs (daytime and evening, light and dark) are derivative works of BART’s [App Map](https://www.bart.gov/schedules/developers/maps), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 
 Requires [Xcode](https://developer.apple.com/xcode/) and [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`). Deployment target is iOS 17. Built with the iOS 26 SDK, system chrome uses Liquid Glass on 26+ and the classic bars on 17–18.
 

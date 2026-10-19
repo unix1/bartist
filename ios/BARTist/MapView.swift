@@ -83,7 +83,6 @@ private struct ZoomableImageView: UIViewRepresentable {
 
 private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
     private let imageView = UIImageView()
-    private let creditView = MapCreditView()
     private var imageName = ""
     private var fittedForSize: CGSize = .zero
     private var isFitting = false
@@ -98,9 +97,7 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
         bouncesZoom = true
         contentInsetAdjustmentBehavior = .never
         backgroundColor = Palette.backgroundUIColor
-        imageView.isUserInteractionEnabled = true
         addSubview(imageView)
-        addSubview(creditView)
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         tap.numberOfTapsRequired = 2
@@ -136,7 +133,6 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
             imageView.frame = CGRect(origin: .zero, size: next.size)
             contentSize = next.size
         }
-        positionCredit()
     }
 
     override func layoutSubviews() {
@@ -160,7 +156,6 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         alignImage()
-        positionCredit()
     }
 
     private func resetAndFit() {
@@ -187,7 +182,6 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
         zoomScale = scale
         contentOffset = .zero
         alignImage()
-        positionCredit()
         fittedForSize = bounds.size
         isFitting = false
     }
@@ -196,16 +190,6 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
         let extraX = max((bounds.width - contentSize.width) * 0.5, 0)
         let extraY = max(bounds.height - contentSize.height, 0)
         contentInset = UIEdgeInsets(top: 0, left: extraX, bottom: extraY, right: extraX)
-        positionCredit()
-    }
-
-    private func positionCredit() {
-        let size = creditView.sizeThatFits(CGSize(width: 200, height: 20))
-        creditView.frame.size = size
-        creditView.frame.origin = CGPoint(
-            x: imageView.frame.maxX - size.width - 8,
-            y: imageView.frame.maxY - size.height - 6
-        )
     }
 
     @objc private func handleDoubleTap(_ tap: UITapGestureRecognizer) {
@@ -222,50 +206,5 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
         let width = bounds.width / scale
         let height = bounds.height / scale
         return CGRect(x: center.x - width / 2, y: center.y - height / 2, width: width, height: height)
-    }
-}
-
-private final class MapCreditView: UITextView, UITextViewDelegate {
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
-        isEditable = false
-        isScrollEnabled = false
-        isSelectable = true
-        backgroundColor = .clear
-        textContainerInset = .zero
-        self.textContainer.lineFragmentPadding = 0
-        let color = UIColor(red: 92 / 255, green: 92 / 255, blue: 92 / 255, alpha: 0.8)
-        linkTextAttributes = [.foregroundColor: color, .underlineStyle: 0]
-        let font = UIFont.systemFont(ofSize: 10)
-        let text = NSMutableAttributedString()
-        let body: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
-        text.append(NSAttributedString(string: "© ", attributes: body))
-        text.append(NSAttributedString(string: "BART", attributes: body.merging([
-            .link: URL(string: "https://www.bart.gov/schedules/developers/maps")!,
-        ]) { _, new in new }))
-        text.append(NSAttributedString(string: " · ", attributes: body))
-        text.append(NSAttributedString(string: "CC BY 3.0", attributes: body.merging([
-            .link: URL(string: "https://creativecommons.org/licenses/by/3.0/")!,
-        ]) { _, new in new }))
-        attributedText = text
-        delegate = self
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func textView(
-        _ textView: UITextView,
-        primaryActionFor textItem: UITextItem,
-        defaultAction: UIAction
-    ) -> UIAction? {
-        guard case let .link(url) = textItem.content else {
-            return defaultAction
-        }
-        return UIAction { _ in
-            UIApplication.shared.open(url)
-        }
     }
 }
