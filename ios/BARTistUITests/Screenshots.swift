@@ -6,6 +6,34 @@ final class Screenshots: XCTestCase {
         let app = XCUIApplication()
         setupSnapshot(app)
         app.launchArguments += ["-bartist.station", "EMBR"]
+
+        captureSet(
+            app,
+            appearance: .light,
+            trains: "01-Trains",
+            stations: "02-Stations",
+            map: "03-Map",
+            settings: "04-Settings"
+        )
+        captureSet(
+            app,
+            appearance: .dark,
+            trains: "05-Trains-Dark",
+            stations: "06-Stations-Dark",
+            map: "07-Map-Dark",
+            settings: "08-Settings-Dark"
+        )
+    }
+
+    private func captureSet(
+        _ app: XCUIApplication,
+        appearance: XCUIDevice.Appearance,
+        trains: String,
+        stations: String,
+        map: String,
+        settings: String
+    ) {
+        XCUIDevice.shared.appearance = appearance
         app.launch()
 
         let station = app.buttons["selected-station"]
@@ -23,18 +51,24 @@ final class Screenshots: XCTestCase {
 
         let ready = app.descendants(matching: .any)["trains-ready"]
         XCTAssertTrue(ready.waitForExistence(timeout: 30), "Trains should finish loading")
-        snapshot("01-Trains")
+        snapshot(trains)
 
         station.tap()
         XCTAssertTrue(app.navigationBars["Select a station"].waitForExistence(timeout: 8))
         XCTAssertTrue(app.descendants(matching: .any)["station-EMBR"].waitForExistence(timeout: 8))
-        snapshot("02-Stations")
+        snapshot(stations)
 
         app.buttons["Back"].tap()
         XCTAssertTrue(station.waitForExistence(timeout: 8))
 
         app.tabBars.buttons["Map"].tap()
         XCTAssertTrue(app.descendants(matching: .any)["map-screen"].waitForExistence(timeout: 8))
-        snapshot("03-Map")
+        snapshot(map)
+
+        app.tabBars.buttons["Settings"].tap()
+        XCTAssertTrue(app.descendants(matching: .any)["settings-screen"].waitForExistence(timeout: 8))
+        snapshot(settings)
+
+        app.terminate()
     }
 }

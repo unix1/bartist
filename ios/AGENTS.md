@@ -46,7 +46,7 @@ make build
 make run
 make test          # unit tests only (`BARTistTests`)
 make simulators
-make screenshots   # Fastlane snapshot: Embarcadero trains, station picker, map
+make screenshots   # Fastlane snapshot: light+dark Trains, Stations, Map, Settings
 make maps          # rasterize ../design/maps SVGs into imageset PNGs
 ```
 
