@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "bart-map-evening.svg",
+      "filename" : "bart-map-evening.png",
       "idiom" : "universal"
     },
     {
@@ -11,15 +11,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "bart-map-evening-dark.svg",
+      "filename" : "bart-map-evening-dark.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }
