@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "bart-map-daytime.svg",
+      "filename" : "bart-map-daytime.png",
       "idiom" : "universal"
     },
     {
@@ -11,15 +11,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "bart-map-daytime-dark.svg",
+      "filename" : "bart-map-daytime-dark.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }

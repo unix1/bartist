@@ -13,7 +13,10 @@ APP := $(DERIVED)/Build/Products/Debug-iphonesimulator/BARTist.app
 
 .DEFAULT_GOAL := help
 
-.PHONY: help generate open build run test simulators screenshots
+MAPS := ../design/maps
+ASSETS := BARTist/Assets.xcassets
+
+.PHONY: help generate open build run test simulators screenshots maps
 
 help:
 	@echo "make generate     regenerate $(PROJECT) from project.yml"
@@ -23,6 +26,7 @@ help:
 	@echo "make test         run unit tests (BARTistTests)"
 	@echo "make simulators   list available simulators"
 	@echo "make screenshots  capture Fastlane screenshots"
+	@echo "make maps         rasterize $(MAPS) SVGs into $(ASSETS) PNGs"
 	@echo ""
 	@echo "SIMULATOR='iPhone 16' OS=18.6 make run"
 
@@ -56,6 +60,9 @@ test: generate
 
 screenshots: generate
 	fastlane screenshots
+
+maps:
+	swift $(MAPS)/rasterize.swift $(MAPS) $(ASSETS)
 
 simulators:
 	xcrun simctl list devices available
