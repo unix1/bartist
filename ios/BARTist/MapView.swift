@@ -102,22 +102,17 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         tap.numberOfTapsRequired = 2
         addGestureRecognizer(tap)
+        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (view: ZoomableScrollView, _) in
+            let name = view.imageName
+            view.imageName = ""
+            view.setImageName(name)
+        }
         setImageName(imageName)
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func traitCollectionDidChange(_ previous: UITraitCollection?) {
-        super.traitCollectionDidChange(previous)
-        guard traitCollection.hasDifferentColorAppearance(comparedTo: previous) else {
-            return
-        }
-        let name = imageName
-        imageName = ""
-        setImageName(name)
     }
 
     func setImageName(_ name: String) {
