@@ -3,6 +3,7 @@ import UIKit
 
 struct MapView: View {
     var showsNavigation = true
+    @Environment(\.isWideLandscape) private var wideLandscape
     @State private var period = MapPeriod.current()
 
     var body: some View {
@@ -14,13 +15,14 @@ struct MapView: View {
     }
 
     private var mapContent: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            BrandTitle(title: "Map")
+        VStack(alignment: wideLandscape ? .center : .leading, spacing: 0) {
+            BrandTitle(title: "Map", showsIcon: !wideLandscape)
+                .frame(maxWidth: .infinity, alignment: wideLandscape ? .center : .leading)
                 .padding(.horizontal, 16)
                 .padding(.top, 4)
                 .padding(.bottom, 8)
 
-            ZStack(alignment: .top) {
+            ZStack(alignment: wideLandscape ? .center : .top) {
                 ZoomableImageView(imageName: period.assetName)
                     .ignoresSafeArea(edges: .bottom)
 
@@ -189,9 +191,12 @@ private final class ZoomableScrollView: UIScrollView, UIScrollViewDelegate {
     }
 
     private func alignImage() {
-        let extraX = max((bounds.width - contentSize.width) * 0.5, 0)
-        let extraY = max(bounds.height - contentSize.height, 0)
+        let extraX = max((bounds.width - imageView.bounds.width * zoomScale) * 0.5, 0)
+        let extraY = max(bounds.height - imageView.bounds.height * zoomScale, 0)
         contentInset = UIEdgeInsets(top: 0, left: extraX, bottom: extraY, right: extraX)
+        if extraX > 0 {
+            contentOffset.x = -extraX
+        }
     }
 
     @objc private func handleDoubleTap(_ tap: UITapGestureRecognizer) {

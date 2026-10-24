@@ -7,7 +7,9 @@ private enum RootTab {
 }
 
 struct RootView: View {
+    @AppStorage("bartist.appearance") private var appearance = Appearance.system
     @State private var tab = RootTab.trains
+    @State private var wideLandscape = false
 
     var body: some View {
         TabView(selection: $tab) {
@@ -26,6 +28,21 @@ struct RootView: View {
                     Label("Settings", systemImage: "gearshape")
                 }
                 .tag(RootTab.settings)
+        }
+        .preferredColorScheme(appearance.colorScheme)
+        .onAppear { appearance.applyToWindows() }
+        .onChange(of: appearance) { _, next in
+            next.applyToWindows()
+        }
+        .environment(\.isWideLandscape, wideLandscape)
+        .background {
+            GeometryReader { proxy in
+                let wide = proxy.size.width > proxy.size.height
+                Color.clear
+                    .onChange(of: wide, initial: true) { _, next in
+                        wideLandscape = next
+                    }
+            }
         }
     }
 }

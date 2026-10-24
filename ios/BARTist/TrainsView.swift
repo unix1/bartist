@@ -6,6 +6,7 @@ struct TrainsView: View {
     var isSelected = true
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("bartist.autoRefresh") private var autoRefresh = true
+    @Environment(\.isWideLandscape) private var wideLandscape
     @State private var store = TrainStore()
     @State private var foldDivides = false
 
@@ -68,25 +69,10 @@ struct TrainsView: View {
 
     private var trainsList: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 8) {
-                BrandTitle(title: "Trains")
-                Spacer(minLength: 8)
-                Button {
-                    Task { await store.refreshDepartures() }
-                } label: {
-                    if store.loading {
-                        ProgressView()
-                    } else {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                }
-                .nativeChip()
-                .disabled(store.loading)
-                .accessibilityLabel("Refresh")
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 4)
-            .padding(.bottom, 8)
+            trainsHeader
+                .padding(.horizontal, 16)
+                .padding(.top, 4)
+                .padding(.bottom, 8)
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
@@ -134,6 +120,28 @@ struct TrainsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Palette.background.ignoresSafeArea())
+    }
+
+    private var trainsHeader: some View {
+        ZStack {
+            BrandTitle(title: "Trains", showsIcon: !wideLandscape)
+                .frame(maxWidth: .infinity, alignment: wideLandscape ? .center : .leading)
+            HStack(spacing: 8) {
+                Spacer(minLength: 8)
+                Button {
+                    Task { await store.refreshDepartures() }
+                } label: {
+                    if store.loading {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                }
+                .nativeChip()
+                .disabled(store.loading)
+                .accessibilityLabel("Refresh")
+            }
+        }
     }
 }
 

@@ -1,14 +1,28 @@
 import SwiftUI
 
+private enum WideLandscapeKey: EnvironmentKey {
+    static let defaultValue = false
+}
+
+extension EnvironmentValues {
+    var isWideLandscape: Bool {
+        get { self[WideLandscapeKey.self] }
+        set { self[WideLandscapeKey.self] = newValue }
+    }
+}
+
 struct BrandTitle: View {
     let title: String
+    var showsIcon = true
 
     var body: some View {
         HStack(spacing: 10) {
-            Image("BrandIcon")
-                .resizable()
-                .frame(width: 32, height: 32)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            if showsIcon {
+                Image("BrandIcon")
+                    .resizable()
+                    .frame(width: 32, height: 32)
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            }
             Text(title)
                 .font(.largeTitle.bold())
                 .foregroundStyle(Palette.text)

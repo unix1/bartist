@@ -3,11 +3,13 @@ import SwiftUI
 struct SettingsView: View {
     @AppStorage("bartist.appearance") private var appearance = Appearance.system
     @AppStorage("bartist.autoRefresh") private var autoRefresh = true
+    @Environment(\.isWideLandscape) private var wideLandscape
 
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 0) {
-                BrandTitle(title: "Settings")
+                BrandTitle(title: "Settings", showsIcon: !wideLandscape)
+                    .frame(maxWidth: .infinity, alignment: wideLandscape ? .center : .leading)
                     .padding(.horizontal, 16)
                     .padding(.top, 4)
                     .padding(.bottom, 8)
