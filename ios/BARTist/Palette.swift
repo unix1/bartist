@@ -35,6 +35,7 @@ enum Appearance: String, CaseIterable, Identifiable {
     func applyToWindows() {
         for scene in UIApplication.shared.connectedScenes {
             guard let windowScene = scene as? UIWindowScene else { continue }
+            windowScene.keyWindow?.overrideUserInterfaceStyle = userInterfaceStyle
             for window in windowScene.windows {
                 window.overrideUserInterfaceStyle = userInterfaceStyle
             }
