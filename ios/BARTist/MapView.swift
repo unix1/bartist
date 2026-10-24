@@ -2,36 +2,43 @@ import SwiftUI
 import UIKit
 
 struct MapView: View {
+    var showsNavigation = true
     @State private var period = MapPeriod.current()
 
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                BrandTitle(title: "Map")
-                    .padding(.horizontal, 16)
-                    .padding(.top, 4)
-                    .padding(.bottom, 8)
+        if showsNavigation {
+            NavigationStack { mapContent }
+        } else {
+            mapContent
+        }
+    }
 
-                ZStack(alignment: .top) {
-                    ZoomableImageView(imageName: period.assetName)
-                        .ignoresSafeArea(edges: .bottom)
+    private var mapContent: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            BrandTitle(title: "Map")
+                .padding(.horizontal, 16)
+                .padding(.top, 4)
+                .padding(.bottom, 8)
 
-                    VStack {
-                        Spacer()
-                        HStack(spacing: 0) {
-                            periodButton(.day, label: "☀️", accessibility: "Daytime map")
-                            periodButton(.evening, label: "🌙", accessibility: "Evening map")
-                        }
-                        .background(.regularMaterial, in: Capsule())
-                        .overlay(Capsule().strokeBorder(.separator, lineWidth: 0.5))
-                        .padding(.bottom, 12)
+            ZStack(alignment: .top) {
+                ZoomableImageView(imageName: period.assetName)
+                    .ignoresSafeArea(edges: .bottom)
+
+                VStack {
+                    Spacer()
+                    HStack(spacing: 0) {
+                        periodButton(.day, label: "☀️", accessibility: "Daytime map")
+                        periodButton(.evening, label: "🌙", accessibility: "Evening map")
                     }
+                    .background(.regularMaterial, in: Capsule())
+                    .overlay(Capsule().strokeBorder(.separator, lineWidth: 0.5))
+                    .padding(.bottom, 12)
                 }
             }
-            .toolbar(.hidden, for: .navigationBar)
-            .background(Palette.background.ignoresSafeArea())
-            .accessibilityIdentifier("map-screen")
         }
+        .toolbar(.hidden, for: .navigationBar)
+        .background(Palette.background.ignoresSafeArea())
+        .accessibilityIdentifier("map-screen")
     }
 
     private func periodButton(_ value: MapPeriod, label: String, accessibility: String) -> some View {

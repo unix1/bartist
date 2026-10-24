@@ -44,7 +44,7 @@ build: generate
 		build
 
 run: build
-	open -a Simulator
+	open "$(dir $(shell xcode-select -p))Applications/DeviceHub.app"
 	xcrun simctl boot "$(SIMULATOR)" || true
 	xcrun simctl bootstatus "$(SIMULATOR)" -b
 	xcrun simctl install booted "$(APP)"

@@ -10,101 +10,120 @@ struct TrainsView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 8) {
-                    BrandTitle(title: "Trains")
-                    Spacer(minLength: 8)
-                    Button {
-                        Task { await store.refreshDepartures() }
-                    } label: {
-                        if store.loading {
-                            ProgressView()
-                        } else {
-                            Image(systemName: "arrow.clockwise")
+            trainsPane
+                .toolbar(.hidden, for: .navigationBar)
+                .sheet(isPresented: $store.pickerOpen) {
+                    StationPickerView(store: store)
+                }
+                .task(id: isSelected) {
+                    guard isSelected else { return }
+                    if store.stations.isEmpty {
+                        await store.load()
+                    } else {
+                        await store.refreshDepartures()
+                    }
+                }
+                .onChange(of: scenePhase) { _, phase in
+                    guard phase == .active, !store.stations.isEmpty else { return }
+                    Task { await store.refreshDepartures() }
+                }
+                .task(id: isSelected && scenePhase == .active && autoRefresh) {
+                    guard isSelected, scenePhase == .active, autoRefresh else { return }
+                    while !Task.isCancelled {
+                        do {
+                            try await Task.sleep(for: autoRefreshInterval)
+                        } catch {
+                            return
+                        }
+                        await store.refreshDepartures()
+                    }
+                }
+        }
+    }
+
+    @ViewBuilder
+    private var trainsPane: some View {
+        if #available(iOS 27.1, *) {
+            ArrangementView {
+                trainsList
+                    .splitArrangementLayoutSize(minWidth: 300, idealWidth: 380, maxWidth: 420)
+            } secondary: {
+                MapView(showsNavigation: false)
+            }
+            .arrangementViewStyle(.split.axes(.horizontal))
+        } else {
+            trainsList
+        }
+    }
+
+    private var trainsList: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 8) {
+                BrandTitle(title: "Trains")
+                Spacer(minLength: 8)
+                Button {
+                    Task { await store.refreshDepartures() }
+                } label: {
+                    if store.loading {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                }
+                .nativeChip()
+                .disabled(store.loading)
+                .accessibilityLabel("Refresh")
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 4)
+            .padding(.bottom, 8)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    if !store.status.isEmpty, store.destinations.isEmpty {
+                        Text(store.status)
+                            .foregroundStyle(Palette.muted)
+                            .padding(.horizontal, 4)
+                    }
+
+                    LazyVStack(spacing: 10) {
+                        ForEach(store.destinations) { destination in
+                            DestinationRow(destination: destination)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 10)
+                                .background(Palette.card, in: RoundedRectangle(cornerRadius: 10))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .strokeBorder(Palette.line, lineWidth: 1)
+                                )
                         }
                     }
-                    .nativeChip()
-                    .disabled(store.loading)
-                    .accessibilityLabel("Refresh")
                 }
+                .padding(12)
+            }
+            .scrollBounceBehavior(.always)
+            .accessibilityIdentifier(store.trainsIdentifier)
+            .refreshable {
+                await Task { await store.refreshDepartures() }.value
+            }
+            .safeAreaInset(edge: .top, spacing: 8) {
+                Button {
+                    store.pickerOpen = true
+                } label: {
+                    Text(store.selectedName)
+                        .font(.title2)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
+                }
+                .controlSize(.large)
+                .nativeChip()
+                .accessibilityIdentifier("selected-station")
                 .padding(.horizontal, 16)
-                .padding(.top, 4)
-                .padding(.bottom, 8)
-
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 10) {
-                        if !store.status.isEmpty, store.destinations.isEmpty {
-                            Text(store.status)
-                                .foregroundStyle(Palette.muted)
-                                .padding(.horizontal, 4)
-                        }
-
-                        LazyVStack(spacing: 10) {
-                            ForEach(store.destinations) { destination in
-                                DestinationRow(destination: destination)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 10)
-                                    .background(Palette.card, in: RoundedRectangle(cornerRadius: 10))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .strokeBorder(Palette.line, lineWidth: 1)
-                                    )
-                            }
-                        }
-                    }
-                    .padding(12)
-                }
-                .scrollBounceBehavior(.always)
-                .accessibilityIdentifier(store.trainsIdentifier)
-                .refreshable {
-                    await Task { await store.refreshDepartures() }.value
-                }
-                .safeAreaInset(edge: .top, spacing: 8) {
-                    Button {
-                        store.pickerOpen = true
-                    } label: {
-                        Text(store.selectedName)
-                            .font(.title2)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                            .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
-                    }
-                    .controlSize(.large)
-                    .nativeChip()
-                    .accessibilityIdentifier("selected-station")
-                    .padding(.horizontal, 16)
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Palette.background.ignoresSafeArea())
-            .toolbar(.hidden, for: .navigationBar)
-            .sheet(isPresented: $store.pickerOpen) {
-                StationPickerView(store: store)
-            }
-            .task(id: isSelected) {
-                guard isSelected else { return }
-                if store.stations.isEmpty {
-                    await store.load()
-                } else {
-                    await store.refreshDepartures()
-                }
-            }
-            .onChange(of: scenePhase) { _, phase in
-                guard phase == .active, !store.stations.isEmpty else { return }
-                Task { await store.refreshDepartures() }
-            }
-            .task(id: isSelected && scenePhase == .active && autoRefresh) {
-                guard isSelected, scenePhase == .active, autoRefresh else { return }
-                while !Task.isCancelled {
-                    do {
-                        try await Task.sleep(for: autoRefreshInterval)
-                    } catch {
-                        return
-                    }
-                    await store.refreshDepartures()
-                }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Palette.background.ignoresSafeArea())
     }
 }
 
