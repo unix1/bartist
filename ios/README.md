@@ -4,7 +4,7 @@ SwiftUI iOS app for live [BART](https://www.bart.gov) departures and a zoomable 
 
 It uses the official [BART API](https://www.bart.gov/schedules/developers/api). The maps (daytime and evening, light and dark) are derivative works of BART’s [App Map](https://www.bart.gov/schedules/developers/maps), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). SVG sources are in [`design/maps/`](../design/maps/); `make maps` rasterizes them to PNGs in the asset catalog.
 
-Requires [Xcode](https://developer.apple.com/xcode/) and [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`). Deployment target is iOS 17. Built with the iOS 26 SDK, system chrome uses Liquid Glass on 26+ and the classic bars on 17–18.
+Requires [Xcode](https://developer.apple.com/xcode/) 27.1+ and [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`). Deployment target is iOS 17. Built with the iOS 27.1 SDK. System chrome uses Liquid Glass on 26+ and the classic bars on 17–18. On iPhone Duo (open or half-open), Trains and Settings use a split layout; folded Duo and other iPhones stay the existing single-column UI.
 
 ```sh
 cd ios
@@ -13,7 +13,7 @@ make run           # build, boot the simulator, install, and launch
 make simulators    # list available simulator names
 ```
 
-`make run` defaults to `iPhone 17`. Override if that name is missing or duplicated:
+`make run` defaults to `iPhone 17` and opens Device Hub (Xcode 27 no longer ships Simulator.app). For Duo, use `SIMULATOR='iPhone Duo'`. Override if a name is missing or duplicated:
 
 ```sh
 xcrun simctl list devices available
