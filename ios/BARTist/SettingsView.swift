@@ -126,6 +126,7 @@ private struct AppearancePickerView: View {
         List(Appearance.allCases) { option in
             Button {
                 appearance = option
+                option.applyToWindows()
                 dismiss()
             } label: {
                 HStack {
