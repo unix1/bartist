@@ -6,103 +6,140 @@ struct TrainsView: View {
     var isSelected = true
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("bartist.autoRefresh") private var autoRefresh = true
+    @Environment(\.isWideLandscape) private var wideLandscape
     @State private var store = TrainStore()
+    @State private var foldDivides = false
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 8) {
-                    BrandTitle(title: "Trains")
-                    Spacer(minLength: 8)
-                    Button {
-                        Task { await store.refreshDepartures() }
-                    } label: {
-                        if store.loading {
-                            ProgressView()
-                        } else {
-                            Image(systemName: "arrow.clockwise")
-                        }
-                    }
-                    .nativeChip()
-                    .disabled(store.loading)
-                    .accessibilityLabel("Refresh")
+            trainsPane
+                .toolbar(.hidden, for: .navigationBar)
+                .sheet(isPresented: $store.pickerOpen) {
+                    StationPickerView(store: store)
                 }
+                .task(id: isSelected) {
+                    guard isSelected else { return }
+                    if store.stations.isEmpty {
+                        await store.load()
+                    } else {
+                        await store.refreshDepartures()
+                    }
+                }
+                .onChange(of: scenePhase) { _, phase in
+                    guard phase == .active, !store.stations.isEmpty else { return }
+                    Task { await store.refreshDepartures() }
+                }
+                .task(id: isSelected && scenePhase == .active && autoRefresh) {
+                    guard isSelected, scenePhase == .active, autoRefresh else { return }
+                    while !Task.isCancelled {
+                        do {
+                            try await Task.sleep(for: autoRefreshInterval)
+                        } catch {
+                            return
+                        }
+                        await store.refreshDepartures()
+                    }
+                }
+        }
+    }
+
+    @ViewBuilder
+    private var trainsPane: some View {
+        if #available(iOS 27.1, *) {
+            ArrangementView {
+                trainsList
+                    .modifier(PhoneWidthWhenFlat(enabled: !foldDivides))
+            } secondary: {
+                MapView(showsNavigation: false)
+            }
+            .arrangementViewStyle(.split.axes(.horizontal))
+            .background {
+                GeometryReader { proxy in
+                    let divided = !proxy.reservedRegions(kind: .division).isEmpty
+                    Color.clear
+                        .onChange(of: divided, initial: true) { _, next in
+                            foldDivides = next
+                        }
+                }
+            }
+        } else {
+            trainsList
+        }
+    }
+
+    private var trainsList: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            trainsHeader
                 .padding(.horizontal, 16)
                 .padding(.top, 4)
                 .padding(.bottom, 8)
 
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 10) {
-                        if !store.status.isEmpty, store.destinations.isEmpty {
-                            Text(store.status)
-                                .foregroundStyle(Palette.muted)
-                                .padding(.horizontal, 4)
-                        }
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    if !store.status.isEmpty, store.destinations.isEmpty {
+                        Text(store.status)
+                            .foregroundStyle(Palette.muted)
+                            .padding(.horizontal, 4)
+                    }
 
-                        LazyVStack(spacing: 10) {
-                            ForEach(store.destinations) { destination in
-                                DestinationRow(destination: destination)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 10)
-                                    .background(Palette.card, in: RoundedRectangle(cornerRadius: 10))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .strokeBorder(Palette.line, lineWidth: 1)
-                                    )
-                            }
+                    LazyVStack(spacing: 10) {
+                        ForEach(store.destinations) { destination in
+                            DestinationRow(destination: destination)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 10)
+                                .background(Palette.card, in: RoundedRectangle(cornerRadius: 10))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .strokeBorder(Palette.line, lineWidth: 1)
+                                )
                         }
                     }
-                    .padding(12)
                 }
-                .scrollBounceBehavior(.always)
-                .accessibilityIdentifier(store.trainsIdentifier)
-                .refreshable {
-                    await Task { await store.refreshDepartures() }.value
+                .padding(12)
+            }
+            .scrollBounceBehavior(.always)
+            .accessibilityIdentifier(store.trainsIdentifier)
+            .refreshable {
+                await Task { await store.refreshDepartures() }.value
+            }
+            .safeAreaInset(edge: .top, spacing: 8) {
+                Button {
+                    store.pickerOpen = true
+                } label: {
+                    Text(store.selectedName)
+                        .font(.title2)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
                 }
-                .safeAreaInset(edge: .top, spacing: 8) {
-                    Button {
-                        store.pickerOpen = true
-                    } label: {
-                        Text(store.selectedName)
-                            .font(.title2)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                            .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
+                .controlSize(.large)
+                .nativeChip()
+                .accessibilityIdentifier("selected-station")
+                .padding(.horizontal, 16)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Palette.background.ignoresSafeArea())
+    }
+
+    private var trainsHeader: some View {
+        ZStack {
+            BrandTitle(title: "Trains", showsIcon: !wideLandscape)
+                .frame(maxWidth: .infinity, alignment: wideLandscape ? .center : .leading)
+            HStack(spacing: 8) {
+                Spacer(minLength: 8)
+                Button {
+                    Task { await store.refreshDepartures() }
+                } label: {
+                    if store.loading {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "arrow.clockwise")
                     }
-                    .controlSize(.large)
-                    .nativeChip()
-                    .accessibilityIdentifier("selected-station")
-                    .padding(.horizontal, 16)
                 }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Palette.background.ignoresSafeArea())
-            .toolbar(.hidden, for: .navigationBar)
-            .sheet(isPresented: $store.pickerOpen) {
-                StationPickerView(store: store)
-            }
-            .task(id: isSelected) {
-                guard isSelected else { return }
-                if store.stations.isEmpty {
-                    await store.load()
-                } else {
-                    await store.refreshDepartures()
-                }
-            }
-            .onChange(of: scenePhase) { _, phase in
-                guard phase == .active, !store.stations.isEmpty else { return }
-                Task { await store.refreshDepartures() }
-            }
-            .task(id: isSelected && scenePhase == .active && autoRefresh) {
-                guard isSelected, scenePhase == .active, autoRefresh else { return }
-                while !Task.isCancelled {
-                    do {
-                        try await Task.sleep(for: autoRefreshInterval)
-                    } catch {
-                        return
-                    }
-                    await store.refreshDepartures()
-                }
+                .nativeChip()
+                .disabled(store.loading)
+                .accessibilityLabel("Refresh")
             }
         }
     }

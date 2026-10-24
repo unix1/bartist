@@ -23,6 +23,24 @@ enum Appearance: String, CaseIterable, Identifiable {
         case .dark: .dark
         }
     }
+
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        switch self {
+        case .system: .unspecified
+        case .light: .light
+        case .dark: .dark
+        }
+    }
+
+    func applyToWindows() {
+        for scene in UIApplication.shared.connectedScenes {
+            guard let windowScene = scene as? UIWindowScene else { continue }
+            windowScene.keyWindow?.overrideUserInterfaceStyle = userInterfaceStyle
+            for window in windowScene.windows {
+                window.overrideUserInterfaceStyle = userInterfaceStyle
+            }
+        }
+    }
 }
 
 enum Palette {

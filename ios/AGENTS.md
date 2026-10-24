@@ -21,15 +21,15 @@ SwiftUI iOS app for BART train departures and a zoomable system map. Keep it ext
 - `BARTistTests/` — unit tests (`make test`)
 - `BARTistUITests/` — Fastlane snapshot UI tests (`make screenshots`); add more UI tests here later
 - `fastlane/` — Snapfile and screenshots lane
-- `../.github/workflows/test.yml` — GitHub Actions: `make test` on `macos-latest`
+- `../.github/workflows/test.yml` — GitHub Actions: `make test` on `xcode-27` (Xcode 27.1)
 
 ## Features
 
 Three tabs:
 
-1. **Trains** — pinned `[icon] Trains` title, pinned station chip (truncates long names, picker scrolls to the current station), destination codes with car length and minutes (`Leaving` → “leaving now”). Only the departure list scrolls; pull-to-refresh is on that list.
+1. **Trains** — pinned `[icon] Trains` title, pinned station chip (truncates long names, picker scrolls to the current station), destination codes with car length and minutes (`Leaving` → “leaving now”). Only the departure list scrolls; pull-to-refresh is on that list. On iOS 27.1+, an `ArrangementView` split (horizontal axis only) keeps that list phone-width and shows the map beside it when the canvas is wider than it is tall (open iPhone Duo). An active hinge division (half-fold) drops the list width cap so each pane can fill a side of the fold. When the window is wider than it is tall (open or half-open Duo in landscape), tab titles are centered on their pane and the brand icon is hidden; the Map tab also centers the map under its title. Any other pose keeps `[icon] Title` left-aligned. Folded / portrait stays list-only; the Map tab is still the full map.
 2. **Map** — `[icon] Map` title aligned with Trains. Daytime or evening bundled PNG fitted to the pane, defaulting to evening from 9pm–3am Pacific. Dark appearance uses the dark PNG. Pinch or double-tap to zoom, pan when zoomed, keep the map on screen. Day/night cross-fades. A small unlinked “© BARTist” sits on the map’s bottom-right.
-3. **Settings** — pinned `[icon] Settings` title. Appearance (System / Light / Dark) is stored in `bartist.appearance` and applied with `preferredColorScheme`. Auto refresh (`bartist.autoRefresh`, default on) reloads the trains list every 30 seconds only while that tab is selected and the app is in the foreground. Colors live in `Palette`. A bottom About group opens a page: app icon (top-aligned) + name, tagline, version, and copyright; App Store rate / website / privacy links; then open-source copy with license, source, and map attribution (based on BART’s official maps under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)).
+3. **Settings** — pinned `[icon] Settings` title. Appearance (System / Light / Dark) is stored in `bartist.appearance` and applied with `preferredColorScheme`. Auto refresh (`bartist.autoRefresh`, default on) reloads the trains list every 30 seconds only while that tab is selected and the app is in the foreground. Colors live in `Palette`. A bottom About group opens a page: app icon (top-aligned) + name, tagline, version, and copyright; App Store rate / website / privacy links; then open-source copy with license, source, and map attribution (based on BART’s official maps under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)). On iOS 27.1+ in a wide landscape canvas (Duo book or open), the list stays on the left and Appearance / About show on the right: even split when the hinge divides the screen, phone-width list and a wider detail pane when fully open (same cap as Trains). Folded / portrait keeps the existing push stack.
 
 BART’s JSON sometimes returns one object instead of an array. Always normalize with `FlexibleArray`. `etd` can also repeat the same destination abbreviation; group those rows, sort trains by arrival, and keep the next three.
 
@@ -46,11 +46,11 @@ make build
 make run
 make test          # unit tests only (`BARTistTests`)
 make simulators
-make screenshots   # Fastlane snapshot: light+dark Trains, Stations, Map, Settings
+make screenshots   # Fastlane snapshot: iPhone 17 + iPhone Duo, light+dark Trains, Stations, Map, Settings
 make maps          # rasterize ../design/maps SVGs into imageset PNGs
 ```
 
-`SIMULATOR` defaults to `iPhone 17`. `make run` writes build products to `.derived/` (gitignored). Verify on the Simulator with `make run`, or `make open` and Run in Xcode. `make test` is unit tests only; Fastlane snapshots stay on `make screenshots`. Functional UI tests can join `BARTistUITests` later without changing `make test`. Push CI runs `make test` on GitHub-hosted `macos-latest` (free for this public repo).
+`SIMULATOR` defaults to `iPhone 17`. `make run` writes build products to `.derived/` (gitignored). Verify on the Simulator with `make run`, or `make open` and Run in Xcode. `make test` is unit tests only; Fastlane snapshots stay on `make screenshots`. Functional UI tests can join `BARTistUITests` later without changing `make test`. Push CI runs `make test` on GitHub-hosted `xcode-27` with Xcode 27.1 (free for this public repo). `macos-latest` is still Xcode 26 and cannot compile the iOS 27.1 Duo APIs.
 
 ## Conventions
 
