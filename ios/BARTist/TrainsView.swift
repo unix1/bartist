@@ -7,6 +7,7 @@ struct TrainsView: View {
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("bartist.autoRefresh") private var autoRefresh = true
     @State private var store = TrainStore()
+    @State private var foldDivides = false
 
     var body: some View {
         NavigationStack {
@@ -46,11 +47,20 @@ struct TrainsView: View {
         if #available(iOS 27.1, *) {
             ArrangementView {
                 trainsList
-                    .splitArrangementLayoutSize(minWidth: 300, idealWidth: 380, maxWidth: 420)
+                    .modifier(PhoneWidthWhenFlat(enabled: !foldDivides))
             } secondary: {
                 MapView(showsNavigation: false)
             }
             .arrangementViewStyle(.split.axes(.horizontal))
+            .background {
+                GeometryReader { proxy in
+                    let divided = !proxy.reservedRegions(kind: .division).isEmpty
+                    Color.clear
+                        .onChange(of: divided, initial: true) { _, next in
+                            foldDivides = next
+                        }
+                }
+            }
         } else {
             trainsList
         }
@@ -124,6 +134,19 @@ struct TrainsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Palette.background.ignoresSafeArea())
+    }
+}
+
+@available(iOS 27.1, *)
+private struct PhoneWidthWhenFlat: ViewModifier {
+    var enabled: Bool
+
+    func body(content: Content) -> some View {
+        if enabled {
+            content.splitArrangementLayoutSize(minWidth: 300, idealWidth: 380, maxWidth: 420)
+        } else {
+            content
+        }
     }
 }
 
