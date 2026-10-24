@@ -145,19 +145,6 @@ struct TrainsView: View {
     }
 }
 
-@available(iOS 27.1, *)
-private struct PhoneWidthWhenFlat: ViewModifier {
-    var enabled: Bool
-
-    func body(content: Content) -> some View {
-        if enabled {
-            content.splitArrangementLayoutSize(minWidth: 300, idealWidth: 380, maxWidth: 420)
-        } else {
-            content
-        }
-    }
-}
-
 private struct DestinationRow: View {
     let destination: Destination
 

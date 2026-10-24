@@ -1,53 +1,146 @@
 import SwiftUI
 
+private enum SettingsPage: Hashable {
+    case appearance
+    case about
+}
+
 struct SettingsView: View {
     @AppStorage("bartist.appearance") private var appearance = Appearance.system
     @AppStorage("bartist.autoRefresh") private var autoRefresh = true
     @Environment(\.isWideLandscape) private var wideLandscape
+    @State private var page: SettingsPage?
+    @State private var foldDivides = false
 
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                BrandTitle(title: "Settings", showsIcon: !wideLandscape)
-                    .frame(maxWidth: .infinity, alignment: wideLandscape ? .center : .leading)
-                    .padding(.horizontal, 16)
-                    .padding(.top, 4)
-                    .padding(.bottom, 8)
-
-                List {
-                    Section {
-                        NavigationLink {
-                            AppearancePickerView(appearance: $appearance)
-                        } label: {
-                            HStack {
-                                Text("Appearance")
-                                Spacer()
-                                Text(appearance.title)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                        .accessibilityIdentifier("appearance-row")
-
-                        Toggle("Auto refresh", isOn: $autoRefresh)
-                            .accessibilityIdentifier("auto-refresh-row")
-                    }
-
-                    Section {
-                        NavigationLink {
-                            AboutView()
-                        } label: {
-                            Text("About")
-                        }
-                        .accessibilityIdentifier("about-row")
-                    }
-                }
-                .listStyle(.insetGrouped)
-                .scrollContentBackground(.hidden)
+        if #available(iOS 27.1, *), wideLandscape {
+            splitSettings
+        } else {
+            NavigationStack {
+                settingsList
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Palette.background.ignoresSafeArea())
-            .toolbar(.hidden, for: .navigationBar)
-            .accessibilityIdentifier("settings-screen")
+        }
+    }
+
+    @available(iOS 27.1, *)
+    private var splitSettings: some View {
+        ArrangementView {
+            settingsList
+                .modifier(PhoneWidthWhenFlat(enabled: !foldDivides))
+        } secondary: {
+            NavigationStack {
+                settingsDetail
+            }
+        }
+        .arrangementViewStyle(.split.axes(.horizontal))
+        .onAppear {
+            if page == nil {
+                page = .appearance
+            }
+        }
+        .background {
+            GeometryReader { proxy in
+                let divided = !proxy.reservedRegions(kind: .division).isEmpty
+                Color.clear
+                    .onChange(of: divided, initial: true) { _, next in
+                        foldDivides = next
+                    }
+            }
+        }
+    }
+
+    private var settingsList: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            BrandTitle(title: "Settings", showsIcon: !wideLandscape)
+                .frame(maxWidth: .infinity, alignment: wideLandscape ? .center : .leading)
+                .padding(.horizontal, 16)
+                .padding(.top, 4)
+                .padding(.bottom, 8)
+
+            List {
+                Section {
+                    appearanceRow
+                    Toggle("Auto refresh", isOn: $autoRefresh)
+                        .accessibilityIdentifier("auto-refresh-row")
+                }
+
+                Section {
+                    aboutRow
+                }
+            }
+            .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Palette.background.ignoresSafeArea())
+        .toolbar(.hidden, for: .navigationBar)
+        .accessibilityIdentifier("settings-screen")
+    }
+
+    @ViewBuilder
+    private var appearanceRow: some View {
+        if wideLandscape {
+            Button {
+                page = .appearance
+            } label: {
+                appearanceLabel
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .listRowBackground(page == .appearance ? Color.accentColor.opacity(0.12) : nil)
+            .accessibilityIdentifier("appearance-row")
+        } else {
+            NavigationLink {
+                AppearancePickerView(appearance: $appearance)
+            } label: {
+                appearanceLabel
+            }
+            .accessibilityIdentifier("appearance-row")
+        }
+    }
+
+    private var appearanceLabel: some View {
+        HStack {
+            Text("Appearance")
+            Spacer()
+            Text(appearance.title)
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    @ViewBuilder
+    private var aboutRow: some View {
+        if wideLandscape {
+            Button {
+                page = .about
+            } label: {
+                Text("About")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .listRowBackground(page == .about ? Color.accentColor.opacity(0.12) : nil)
+            .accessibilityIdentifier("about-row")
+        } else {
+            NavigationLink {
+                AboutView()
+            } label: {
+                Text("About")
+            }
+            .accessibilityIdentifier("about-row")
+        }
+    }
+
+    @ViewBuilder
+    private var settingsDetail: some View {
+        switch page {
+        case .appearance:
+            AppearancePickerView(appearance: $appearance, popsOnSelect: false)
+        case .about:
+            AboutView()
+        case nil:
+            Color.clear
         }
     }
 }
@@ -120,6 +213,7 @@ private struct AboutLink: View {
 
 private struct AppearancePickerView: View {
     @Binding var appearance: Appearance
+    var popsOnSelect = true
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -127,7 +221,9 @@ private struct AppearancePickerView: View {
             Button {
                 appearance = option
                 option.applyToWindows()
-                dismiss()
+                if popsOnSelect {
+                    dismiss()
+                }
             } label: {
                 HStack {
                     Text(option.title)

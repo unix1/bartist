@@ -32,6 +32,19 @@ struct BrandTitle: View {
     }
 }
 
+@available(iOS 27.1, *)
+struct PhoneWidthWhenFlat: ViewModifier {
+    var enabled: Bool
+
+    func body(content: Content) -> some View {
+        if enabled {
+            content.splitArrangementLayoutSize(minWidth: 300, idealWidth: 380, maxWidth: 420)
+        } else {
+            content
+        }
+    }
+}
+
 extension View {
     @ViewBuilder
     func nativeChip() -> some View {
