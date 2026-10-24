@@ -21,7 +21,7 @@ SwiftUI iOS app for BART train departures and a zoomable system map. Keep it ext
 - `BARTistTests/` — unit tests (`make test`)
 - `BARTistUITests/` — Fastlane snapshot UI tests (`make screenshots`); add more UI tests here later
 - `fastlane/` — Snapfile and screenshots lane
-- `../.github/workflows/test.yml` — GitHub Actions: `make test` on `macos-latest`
+- `../.github/workflows/test.yml` — GitHub Actions: `make test` on `xcode-27` (Xcode 27.1)
 
 ## Features
 
@@ -50,7 +50,7 @@ make screenshots   # Fastlane snapshot: light+dark Trains, Stations, Map, Settin
 make maps          # rasterize ../design/maps SVGs into imageset PNGs
 ```
 
-`SIMULATOR` defaults to `iPhone 17`. `make run` writes build products to `.derived/` (gitignored). Verify on the Simulator with `make run`, or `make open` and Run in Xcode. `make test` is unit tests only; Fastlane snapshots stay on `make screenshots`. Functional UI tests can join `BARTistUITests` later without changing `make test`. Push CI runs `make test` on GitHub-hosted `macos-latest` (free for this public repo).
+`SIMULATOR` defaults to `iPhone 17`. `make run` writes build products to `.derived/` (gitignored). Verify on the Simulator with `make run`, or `make open` and Run in Xcode. `make test` is unit tests only; Fastlane snapshots stay on `make screenshots`. Functional UI tests can join `BARTistUITests` later without changing `make test`. Push CI runs `make test` on GitHub-hosted `xcode-27` with Xcode 27.1 (free for this public repo). `macos-latest` is still Xcode 26 and cannot compile the iOS 27.1 Duo APIs.
 
 ## Conventions
 
