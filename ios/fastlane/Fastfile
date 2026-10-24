@@ -3,6 +3,16 @@ default_platform(:ios)
 platform :ios do
   desc "Capture App Store screenshots"
   lane :screenshots do
-    capture_screenshots
+    capture_screenshots(
+      devices: ["iPhone 17"],
+      ios_version: "26.5",
+      clear_previous_screenshots: true
+    )
+    # Duo is iOS 27.1-only. It boots folded (outer display).
+    capture_screenshots(
+      devices: ["iPhone Duo"],
+      ios_version: "27.1",
+      clear_previous_screenshots: false
+    )
   end
 end

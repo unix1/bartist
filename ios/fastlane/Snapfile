@@ -1,6 +1,6 @@
-# App Store Connect requires iPhone Dynamic Island (medium): 1206×2622.
-devices(["iPhone 17"])
-ios_version("26.5")
+# Shared snapshot settings. Devices and iOS versions are set in Fastfile:
+# iPhone 17 on 26.5 (Dynamic Island medium, 1206×2622) and iPhone Duo on 27.1
+# (outer 1398×2034 when folded). Duo is a separate pass because 26.5 has no Duo.
 
 languages(["en-US"])
 

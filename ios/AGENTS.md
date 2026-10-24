@@ -46,7 +46,7 @@ make build
 make run
 make test          # unit tests only (`BARTistTests`)
 make simulators
-make screenshots   # Fastlane snapshot: light+dark Trains, Stations, Map, Settings
+make screenshots   # Fastlane snapshot: iPhone 17 + iPhone Duo, light+dark Trains, Stations, Map, Settings
 make maps          # rasterize ../design/maps SVGs into imageset PNGs
 ```
 

@@ -5,7 +5,7 @@ final class Screenshots: XCTestCase {
     func testScreenshots() throws {
         let app = XCUIApplication()
         setupSnapshot(app)
-        app.launchArguments += ["-bartist.station", "EMBR"]
+        app.launchArguments += ["-bartist.station", "EMBR", "-bartist.appearance", "system"]
 
         captureSet(
             app,
@@ -61,14 +61,31 @@ final class Screenshots: XCTestCase {
         app.buttons["Back"].tap()
         XCTAssertTrue(station.waitForExistence(timeout: 8))
 
-        app.tabBars.buttons["Map"].tap()
+        tapTab(app, "Map")
         XCTAssertTrue(app.descendants(matching: .any)["map-screen"].waitForExistence(timeout: 8))
         snapshot(map)
 
-        app.tabBars.buttons["Settings"].tap()
+        tapTab(app, "Settings")
         XCTAssertTrue(app.descendants(matching: .any)["settings-screen"].waitForExistence(timeout: 8))
         snapshot(settings)
 
         app.terminate()
+    }
+
+    /// iOS 27 Duo does not expose a TabBar to XCTest; fall back to any matching control.
+    private func tapTab(_ app: XCUIApplication, _ name: String) {
+        let tabBar = app.tabBars.buttons[name]
+        if tabBar.exists {
+            tabBar.tap()
+            return
+        }
+        let button = app.buttons[name]
+        if button.exists {
+            button.tap()
+            return
+        }
+        let any = app.descendants(matching: .any)[name]
+        XCTAssertTrue(any.waitForExistence(timeout: 8), "\(name) tab")
+        any.firstMatch.tap()
     }
 }
